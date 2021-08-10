@@ -28,6 +28,11 @@
 		EDADFAD726BBBF790084F617 /* API+Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDADFAD626BBBF790084F617 /* API+Path.swift */; };
 		EDADFAD926BBC2740084F617 /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDADFAD826BBC2740084F617 /* ServiceManager.swift */; };
 		EDADFADB26BBC2EC0084F617 /* ServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDADFADA26BBC2EC0084F617 /* ServiceType.swift */; };
+		EDFF9CC026C2531F00B5D974 /* RSEventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFF9CBF26C2531F00B5D974 /* RSEventRepository.swift */; };
+		EDFF9CC226C25EE500B5D974 /* RSDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFF9CC126C25EE500B5D974 /* RSDatabaseManager.swift */; };
+		EDFF9CC426C25F6600B5D974 /* RSServerConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFF9CC326C25F6600B5D974 /* RSServerConfigManager.swift */; };
+		EDFF9CC926C279B200B5D974 /* RSLogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFF9CC826C279B200B5D974 /* RSLogLevel.swift */; };
+		EDFF9CCB26C27ABF00B5D974 /* RSATT.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFF9CCA26C27ABF00B5D974 /* RSATT.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,7 +47,7 @@
 		EDADFA9926BA62BF0084F617 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		EDADFAA226BA63F60084F617 /* Rudder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rudder.h; sourceTree = "<group>"; };
 		EDADFAA326BA63F60084F617 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EDADFABB26BA73960084F617 /* Rudder.podspec */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rudder.podspec; sourceTree = SOURCE_ROOT; };
+		EDADFABB26BA73960084F617 /* Rudder.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Rudder.podspec; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		EDADFABF26BA75BB0084F617 /* RSConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSConfig.swift; sourceTree = "<group>"; };
 		EDADFAC126BA75ED0084F617 /* RSOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSOption.swift; sourceTree = "<group>"; };
 		EDADFAC526BA7A380084F617 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -55,6 +60,11 @@
 		EDADFAD626BBBF790084F617 /* API+Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Path.swift"; sourceTree = "<group>"; };
 		EDADFAD826BBC2740084F617 /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
 		EDADFADA26BBC2EC0084F617 /* ServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceType.swift; sourceTree = "<group>"; };
+		EDFF9CBF26C2531F00B5D974 /* RSEventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSEventRepository.swift; sourceTree = "<group>"; };
+		EDFF9CC126C25EE500B5D974 /* RSDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSDatabaseManager.swift; sourceTree = "<group>"; };
+		EDFF9CC326C25F6600B5D974 /* RSServerConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSServerConfigManager.swift; sourceTree = "<group>"; };
+		EDFF9CC826C279B200B5D974 /* RSLogLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSLogLevel.swift; sourceTree = "<group>"; };
+		EDFF9CCA26C27ABF00B5D974 /* RSATT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSATT.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +128,9 @@
 			isa = PBXGroup;
 			children = (
 				EDADFA9426BA5FDB0084F617 /* RSClient.swift */,
+				EDFF9CBF26C2531F00B5D974 /* RSEventRepository.swift */,
+				EDFF9CC126C25EE500B5D974 /* RSDatabaseManager.swift */,
+				EDFF9CC326C25F6600B5D974 /* RSServerConfigManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -134,6 +147,7 @@
 		EDADFABD26BA75950084F617 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				EDFF9CC726C2791800B5D974 /* Enums */,
 				EDADFABE26BA759C0084F617 /* Models */,
 				EDADFAC726BA86420084F617 /* Protocol */,
 			);
@@ -145,9 +159,9 @@
 			children = (
 				EDADFADC26BBEBED0084F617 /* Attributes */,
 				EDADFABF26BA75BB0084F617 /* RSConfig.swift */,
-				EDADFAC126BA75ED0084F617 /* RSOption.swift */,
-				EDADFACA26BBA0530084F617 /* RSMessage.swift */,
 				EDADFACC26BBA0C70084F617 /* RSContext.swift */,
+				EDADFACA26BBA0530084F617 /* RSMessage.swift */,
+				EDADFAC126BA75ED0084F617 /* RSOption.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -202,6 +216,15 @@
 			children = (
 			);
 			path = Attributes;
+			sourceTree = "<group>";
+		};
+		EDFF9CC726C2791800B5D974 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				EDFF9CCA26C27ABF00B5D974 /* RSATT.swift */,
+				EDFF9CC826C279B200B5D974 /* RSLogLevel.swift */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,18 +314,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDADFACB26BBA0530084F617 /* RSMessage.swift in Sources */,
+				EDFF9CCB26C27ABF00B5D974 /* RSATT.swift in Sources */,
 				EDADFAD926BBC2740084F617 /* ServiceManager.swift in Sources */,
 				EDADFAC226BA75ED0084F617 /* RSOption.swift in Sources */,
+				EDFF9CC426C25F6600B5D974 /* RSServerConfigManager.swift in Sources */,
 				EDADFAC026BA75BB0084F617 /* RSConfig.swift in Sources */,
+				EDFF9CC926C279B200B5D974 /* RSLogLevel.swift in Sources */,
 				EDADFAD526BBBEA70084F617 /* API+Method.swift in Sources */,
 				EDADFADB26BBC2EC0084F617 /* ServiceType.swift in Sources */,
 				EDADFAC926BA86610084F617 /* RSIntegrationFactory.swift in Sources */,
 				EDADFA9526BA5FDB0084F617 /* RSClient.swift in Sources */,
+				EDFF9CC226C25EE500B5D974 /* RSDatabaseManager.swift in Sources */,
 				EDADFAC626BA7A380084F617 /* Constants.swift in Sources */,
 				EDADFAD326BBBE4F0084F617 /* API+Headers.swift in Sources */,
 				EDADFAD026BBB40F0084F617 /* API.swift in Sources */,
 				EDADFAD726BBBF790084F617 /* API+Path.swift in Sources */,
 				EDADFACD26BBA0C70084F617 /* RSContext.swift in Sources */,
+				EDFF9CC026C2531F00B5D974 /* RSEventRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

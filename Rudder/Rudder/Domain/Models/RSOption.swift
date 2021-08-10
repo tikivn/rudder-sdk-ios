@@ -19,7 +19,7 @@ import Foundation
         customContexts = nil
     }
     
-    func putExternalId(type: String, withId idValue: String) {
+    @objc public func putExternalId(_ type: String, withId idValue: String) {
         if externalIds == nil {
             externalIds = [[String: Any]]()
         }

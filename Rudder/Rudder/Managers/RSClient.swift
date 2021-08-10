@@ -10,36 +10,81 @@ import Foundation
 
 @objc open class RSClient: NSObject {
     private static let shared = RSClient()
-    private var _defaultOptions: RSOption?
+    private static var _defaultOptions: RSOption?
     private let serviceManager = ServiceManager()
-    
-    @objc public static func getInstance() -> RSClient {
-        return shared
-    }
+    private static var eventRepository: RSEventRepository?
     
     private override init() {
     
     }
     
-    private func getInstance(writeKey: String) {
-        getInstance(writeKey: writeKey, config: RSConfig())
+    @objc public static func sharedInstance() -> RSClient {
+        return shared
     }
     
-    private func getInstance(writeKey: String, config: RSConfig) {
-        // init RSEventRepository
+    @objc static public func getInstance(_ writeKey: String) {
+        getInstance(writeKey, config: RSConfig())
     }
     
-    @objc public func getInstance(writeKey: String, config: RSConfig, options: RSOption) {
+    @objc static public func getInstance(_ writeKey: String, config: RSConfig) {
+        eventRepository = RSEventRepository(writeKey: writeKey, config: config)
+    }
+    
+    @objc static public func getInstance(_ writeKey: String, config: RSConfig, options: RSOption) {
         _defaultOptions = options
-        getInstance(writeKey: writeKey, config: config)
+        getInstance(writeKey, config: config)
     }
     
     @objc static public func setAnonymousId(_ anonymousId: String) {
         
     }
     
-    func trackMessage(_ message: RSMessage) {
-        //[self dumpInternal:message type:RSTrack];
+    @objc public func track(_ eventName: String) {
+        
+    }
+    
+    @objc public func track(_ eventName: String, properties: [String: Any]) {
+        
+    }
+    
+    @objc public func track(_ eventName: String, properties: [String: Any], options: RSOption) {
+        
+    }
+    
+    @objc public func screen(_ screenName: String) {
+        
+    }
+    
+    @objc public func screen(_ screenName: String, properties: [String: Any]) {
+        
+    }
+    
+    @objc public func screen(_ screenName: String, properties: [String: Any], options: RSOption) {
+        
+    }
+    
+    @objc public func alias(_ newId: String) {
+        
+    }
+    
+    @objc public func alias(_ newId: String, options: RSOption) {
+        
+    }
+    
+    @objc public func identify(_ userId: String) {
+        
+    }
+    
+    @objc public func identify(_ userId: String, traits: [String: Any]) {
+        
+    }
+    
+    @objc public func identify(_ userId: String, traits: [String: Any], options: RSOption) {
+        
+    }
+    
+    @objc public func getContext() -> RSContext {
+        return RSContext()
     }
     
     /*

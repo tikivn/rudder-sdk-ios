@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol RSIntegrationFactory {
+@objc public protocol RSIntegrationFactory {
     var key: String { get }
 }

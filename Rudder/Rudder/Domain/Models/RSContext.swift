@@ -8,6 +8,17 @@
 
 import Foundation
 
-struct RSContext {
+@objc open class RSContext: NSObject {
     
+    @objc public func putDeviceToken(_ deviceToken: String) {
+        
+    }
+    
+    @objc public func putAdvertisementId(_ idfa: String) {
+        
+    }
+    
+    @objc public func putAppTrackingConsent(_ att: Int) {
+        
+    }
 }

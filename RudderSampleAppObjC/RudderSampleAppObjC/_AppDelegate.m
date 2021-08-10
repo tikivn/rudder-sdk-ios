@@ -28,18 +28,18 @@ static NSString *WRITE_KEY = @"1pcZviVxgjd3rTUUmaTUBinGH0A";
     [defaultOption putIntegration:@"All" isEnabled:NO];
     // adding an integration into integrations object using its Factory object
     //[defaultOption putIntegrationWithFactory:[RudderMoengageFactory instance] isEnabled:NO];
-    /*RSConfigBuilder *builder = [[RSConfigBuilder alloc] init];
+    RSConfig *builder = [[RSConfig alloc] init];
     [builder withDataPlaneURL:[[NSURL alloc] initWithString:DATA_PLANE_URL]];
     [builder withLoglevel:RSLogLevelDebug];
     [builder withTrackLifecycleEvens:NO];
     [builder withRecordScreenViews:NO];
     // creating the client object by passing the options object
-    [RSClient getInstance:WRITE_KEY config:[builder build] options:defaultOption];
+    [RSClient getInstance:WRITE_KEY config:builder options:defaultOption];
     
     [[[RSClient sharedInstance] getContext] putDeviceToken:[self getDeviceToken]];
     [[[RSClient sharedInstance] getContext] putAdvertisementId:[self getIDFA]];
     [[[RSClient sharedInstance] getContext] putAppTrackingConsent:RSATTAuthorize];
-    */
+    
     
     RSOption *option = [[RSOption alloc]init];
     [option putIntegration:@"Amplitude" isEnabled:YES];
@@ -48,11 +48,11 @@ static NSString *WRITE_KEY = @"1pcZviVxgjd3rTUUmaTUBinGH0A";
         @"language": @"objective-c",
         @"version": @"1.0.0"
     } withKey: @"customContext"];
-    /*[[RSClient sharedInstance] track:@"simple_track_event"];
+    [[RSClient sharedInstance] track:@"simple_track_event"];
     [[RSClient sharedInstance] track:@"simple_track_with_props" properties:@{
         @"key_1" : @"value_1",
         @"key_2" : @"value_2"
-    } options:option];*/
+    } options:option];
     
     return YES;
 }
