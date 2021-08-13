@@ -76,11 +76,13 @@ import Foundation
     }
     
     @objc public func withDebug(_ debug: Bool) -> RSConfig {
+        RSClient.shared.logger.configure(logLevel: .verbose)
         self.logLevel = .verbose
         return self
     }
     
     @objc public func withLoglevel(_ logLevel: RSLogLevel) -> RSConfig {
+        RSClient.shared.logger.configure(logLevel: logLevel)
         self.logLevel = logLevel
         return self
     }

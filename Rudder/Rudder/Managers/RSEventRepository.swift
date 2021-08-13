@@ -9,12 +9,23 @@
 import Foundation
 
 class RSEventRepository {
-//    static let shared = RSEventRepository()
-    let databaseManager: RSDatabaseManager?
-    let serverConfigManager: RSServerConfigManager?
+    private let databaseManager = RSDatabaseManager()
+    private let serverConfigManager = RSServerConfigManager()
+    private let serviceManager = ServiceManager()
+
+    private var options: RSOption?
+    private var authToken: String?
+    private var config: RSConfig?
     
-    init(writeKey: String, config: RSConfig) {
-        databaseManager = RSDatabaseManager()
-        serverConfigManager = RSServerConfigManager()
+    let cachedContext = RSContext()
+    
+    func configure(writeKey: String, config: RSConfig, options: RSOption) {
+        self.authToken = writeKey.data(using: .utf8)?.base64EncodedString()
+        self.config = config
+        self.options = options
+        RSClient.shared.logger.logDebug(message: "EventRepository: writeKey: \(writeKey)")
+        RSClient.shared.logger.logDebug(message: "EventRepository: authToken: \(authToken ?? "")")
+        RSClient.shared.logger.logDebug(message: "EventRepository: initiating element cache")
+        
     }
 }

@@ -18,4 +18,5 @@ class Constants {
     static let RSTrackLifeCycleEvents: Bool = true
     static let RSRecordScreenViews: Bool = false
     static let RS_VERSION: String = "1.0.21"
+    static let TAG = "RSStack"
 }

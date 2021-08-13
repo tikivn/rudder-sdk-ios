@@ -9,13 +9,12 @@
 import Foundation
 
 @objc open class RSClient: NSObject {
-    private static let shared = RSClient()
-    private static var _defaultOptions: RSOption?
-    private let serviceManager = ServiceManager()
-    private static var eventRepository: RSEventRepository?
-    
+    internal static let shared = RSClient()
+    private var eventRepository = RSEventRepository()
+    let logger = RSLogger()
+
     private override init() {
-    
+        
     }
     
     @objc public static func sharedInstance() -> RSClient {
@@ -23,16 +22,15 @@ import Foundation
     }
     
     @objc static public func getInstance(_ writeKey: String) {
-        getInstance(writeKey, config: RSConfig())
+        getInstance(writeKey, config: RSConfig(), options: RSOption())
     }
     
     @objc static public func getInstance(_ writeKey: String, config: RSConfig) {
-        eventRepository = RSEventRepository(writeKey: writeKey, config: config)
+        getInstance(writeKey, config: config, options: RSOption())
     }
     
     @objc static public func getInstance(_ writeKey: String, config: RSConfig, options: RSOption) {
-        _defaultOptions = options
-        getInstance(writeKey, config: config)
+        RSClient.shared.eventRepository.configure(writeKey: writeKey, config: config, options: options)
     }
     
     @objc static public func setAnonymousId(_ anonymousId: String) {
@@ -84,7 +82,7 @@ import Foundation
     }
     
     @objc public func getContext() -> RSContext {
-        return RSContext()
+        return eventRepository.cachedContext
     }
     
     /*
