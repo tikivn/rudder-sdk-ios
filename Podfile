@@ -9,6 +9,11 @@ end
 
 project 'RudderSampleAppObjC/RudderSampleAppObjC.xcodeproj'
 project 'RudderSammpleAppSwift/RudderSammpleAppSwift.xcodeproj'
+project 'Rudder/Rudder.xcodeproj'
+
+target 'Rudder' do
+    pod 'SwiftLint'
+end
 
 target 'RudderSampleAppObjC' do
     project 'RudderSampleAppObjC/RudderSampleAppObjC.xcodeproj'

@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		06CABC332630C6B00097BEFF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06CABC322630C6B00097BEFF /* Foundation.framework */; };
 		06CABC352630C6D30097BEFF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06CABC2E2630C6660097BEFF /* UIKit.framework */; };
+		78A9992A1FF30546EB75AF9A /* Pods_Rudder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07456F1702E47AB7CDC37326 /* Pods_Rudder.framework */; };
+		ED1DEAE926C667C600C09CAA /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DEAE826C667C600C09CAA /* UserDefaults+Ext.swift */; };
+		ED1DEAEB26C6772800C09CAA /* JSONEncoder+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DEAEA26C6772800C09CAA /* JSONEncoder+Ext.swift */; };
+		ED1DEAF226CB8C1F00C09CAA /* RSServerDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DEAF126CB8C1F00C09CAA /* RSServerDestination.swift */; };
+		ED1DEAF426CB8C9000C09CAA /* RSServerDestinationDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DEAF326CB8C9000C09CAA /* RSServerDestinationDefinition.swift */; };
+		ED1DEAF626CB909900C09CAA /* RSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DEAF526CB909900C09CAA /* RSConstants.swift */; };
 		EDADFA9526BA5FDB0084F617 /* RSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDADFA9426BA5FDB0084F617 /* RSClient.swift */; };
-		EDADFA9A26BA62BF0084F617 /* release.sh in Resources */ = {isa = PBXBuildFile; fileRef = EDADFA9626BA62BF0084F617 /* release.sh */; };
-		EDADFA9B26BA62BF0084F617 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = EDADFA9726BA62BF0084F617 /* CHANGELOG.md */; };
-		EDADFA9C26BA62BF0084F617 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = EDADFA9826BA62BF0084F617 /* LICENSE */; };
-		EDADFA9D26BA62BF0084F617 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = EDADFA9926BA62BF0084F617 /* README.md */; };
 		EDADFAA426BA63F60084F617 /* Rudder.h in Headers */ = {isa = PBXBuildFile; fileRef = EDADFAA226BA63F60084F617 /* Rudder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDADFABC26BA73960084F617 /* Rudder.podspec in Resources */ = {isa = PBXBuildFile; fileRef = EDADFABB26BA73960084F617 /* Rudder.podspec */; };
 		EDADFAC026BA75BB0084F617 /* RSConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDADFABF26BA75BB0084F617 /* RSConfig.swift */; };
 		EDADFAC226BA75ED0084F617 /* RSOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDADFAC126BA75ED0084F617 /* RSOption.swift */; };
 		EDADFAC626BA7A380084F617 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDADFAC526BA7A380084F617 /* Constants.swift */; };
@@ -34,12 +35,31 @@
 		EDFF9CC426C25F6600B5D974 /* RSServerConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFF9CC326C25F6600B5D974 /* RSServerConfigManager.swift */; };
 		EDFF9CC926C279B200B5D974 /* RSLogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFF9CC826C279B200B5D974 /* RSLogLevel.swift */; };
 		EDFF9CCB26C27ABF00B5D974 /* RSATT.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFF9CCA26C27ABF00B5D974 /* RSATT.swift */; };
+		F60C05DF26C3F8C300DB218D /* RSMessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60C05DE26C3F8C300DB218D /* RSMessageType.swift */; };
+		F647BACB26BD212F00C1EDB2 /* RSUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F647BACA26BD212F00C1EDB2 /* RSUtils.swift */; };
+		F647BB8626BD430D00C1EDB2 /* RSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F647BB8526BD430D00C1EDB2 /* RSApp.swift */; };
+		F647BB8826BD432400C1EDB2 /* RSLibraryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F647BB8726BD432400C1EDB2 /* RSLibraryInfo.swift */; };
+		F647BB8A26BD433600C1EDB2 /* RSOSInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F647BB8926BD433600C1EDB2 /* RSOSInfo.swift */; };
+		F647BB8C26BD434400C1EDB2 /* RSScreenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F647BB8B26BD434400C1EDB2 /* RSScreenInfo.swift */; };
+		F647BB8E26BD435600C1EDB2 /* RSDeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F647BB8D26BD435600C1EDB2 /* RSDeviceInfo.swift */; };
+		F647BB9026BD436500C1EDB2 /* RSNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = F647BB8F26BD436500C1EDB2 /* RSNetwork.swift */; };
+		F66207F026C4E0B200BAB6AA /* RSPreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66207EF26C4E0B200BAB6AA /* RSPreferenceManager.swift */; };
+		F66207F426C5238100BAB6AA /* RSTraits.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66207F326C5238100BAB6AA /* RSTraits.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		06CABB842630C3CA0097BEFF /* Rudder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rudder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		06CABC2E2630C6660097BEFF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/iOSSupport/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		06CABC322630C6B00097BEFF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		07456F1702E47AB7CDC37326 /* Pods_Rudder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rudder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C6F92C046EF07137714AE79 /* Pods-Rudder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rudder.release.xcconfig"; path = "Target Support Files/Pods-Rudder/Pods-Rudder.release.xcconfig"; sourceTree = "<group>"; };
+		52B74E9835C985AD2FC16125 /* Pods-Rudder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rudder.debug.xcconfig"; path = "Target Support Files/Pods-Rudder/Pods-Rudder.debug.xcconfig"; sourceTree = "<group>"; };
+		ED1DEAE826C667C600C09CAA /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
+		ED1DEAEA26C6772800C09CAA /* JSONEncoder+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONEncoder+Ext.swift"; sourceTree = "<group>"; };
+		ED1DEAEE26C68D7D00C09CAA /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		ED1DEAF126CB8C1F00C09CAA /* RSServerDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSServerDestination.swift; sourceTree = "<group>"; };
+		ED1DEAF326CB8C9000C09CAA /* RSServerDestinationDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSServerDestinationDefinition.swift; sourceTree = "<group>"; };
+		ED1DEAF526CB909900C09CAA /* RSConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSConstants.swift; sourceTree = "<group>"; };
 		ED6EED8026B1081700C66C21 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		EDADFA9426BA5FDB0084F617 /* RSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSClient.swift; sourceTree = "<group>"; };
 		EDADFA9626BA62BF0084F617 /* release.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = release.sh; path = ../release.sh; sourceTree = "<group>"; };
@@ -67,6 +87,16 @@
 		EDFF9CC326C25F6600B5D974 /* RSServerConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSServerConfigManager.swift; sourceTree = "<group>"; };
 		EDFF9CC826C279B200B5D974 /* RSLogLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSLogLevel.swift; sourceTree = "<group>"; };
 		EDFF9CCA26C27ABF00B5D974 /* RSATT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSATT.swift; sourceTree = "<group>"; };
+		F60C05DE26C3F8C300DB218D /* RSMessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSMessageType.swift; sourceTree = "<group>"; };
+		F647BACA26BD212F00C1EDB2 /* RSUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSUtils.swift; sourceTree = "<group>"; };
+		F647BB8526BD430D00C1EDB2 /* RSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSApp.swift; sourceTree = "<group>"; };
+		F647BB8726BD432400C1EDB2 /* RSLibraryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSLibraryInfo.swift; sourceTree = "<group>"; };
+		F647BB8926BD433600C1EDB2 /* RSOSInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSOSInfo.swift; sourceTree = "<group>"; };
+		F647BB8B26BD434400C1EDB2 /* RSScreenInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSScreenInfo.swift; sourceTree = "<group>"; };
+		F647BB8D26BD435600C1EDB2 /* RSDeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSDeviceInfo.swift; sourceTree = "<group>"; };
+		F647BB8F26BD436500C1EDB2 /* RSNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSNetwork.swift; sourceTree = "<group>"; };
+		F66207EF26C4E0B200BAB6AA /* RSPreferenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSPreferenceManager.swift; sourceTree = "<group>"; };
+		F66207F326C5238100BAB6AA /* RSTraits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSTraits.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +106,7 @@
 			files = (
 				06CABC332630C6B00097BEFF /* Foundation.framework in Frameworks */,
 				06CABC352630C6D30097BEFF /* UIKit.framework in Frameworks */,
+				78A9992A1FF30546EB75AF9A /* Pods_Rudder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +116,7 @@
 		06CABB7A2630C3CA0097BEFF = {
 			isa = PBXGroup;
 			children = (
+				ED1DEAEE26C68D7D00C09CAA /* .swiftlint.yml */,
 				EDADFA9726BA62BF0084F617 /* CHANGELOG.md */,
 				EDADFA9826BA62BF0084F617 /* LICENSE */,
 				EDADFA9926BA62BF0084F617 /* README.md */,
@@ -93,6 +125,7 @@
 				06CABB862630C3CA0097BEFF /* Rudder */,
 				06CABB852630C3CA0097BEFF /* Products */,
 				06CABC2D2630C6660097BEFF /* Frameworks */,
+				21A2A68474FB0C98C18DCB46 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,8 +156,36 @@
 			children = (
 				06CABC322630C6B00097BEFF /* Foundation.framework */,
 				06CABC2E2630C6660097BEFF /* UIKit.framework */,
+				07456F1702E47AB7CDC37326 /* Pods_Rudder.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		21A2A68474FB0C98C18DCB46 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				52B74E9835C985AD2FC16125 /* Pods-Rudder.debug.xcconfig */,
+				2C6F92C046EF07137714AE79 /* Pods-Rudder.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../Pods;
+			sourceTree = "<group>";
+		};
+		ED1DEAE526C6417500C09CAA /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				F647BACA26BD212F00C1EDB2 /* RSUtils.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		ED1DEAE726C667AD00C09CAA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				ED1DEAEA26C6772800C09CAA /* JSONEncoder+Ext.swift */,
+				ED1DEAE826C667C600C09CAA /* UserDefaults+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		EDADFA9E26BA63890084F617 /* Managers */ = {
@@ -134,6 +195,7 @@
 				EDFF9CC126C25EE500B5D974 /* RSDatabaseManager.swift */,
 				EDFF9CBF26C2531F00B5D974 /* RSEventRepository.swift */,
 				EDFF9CC326C25F6600B5D974 /* RSServerConfigManager.swift */,
+				F66207EF26C4E0B200BAB6AA /* RSPreferenceManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -160,10 +222,19 @@
 		EDADFABE26BA759C0084F617 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F647BB8526BD430D00C1EDB2 /* RSApp.swift */,
 				EDADFABF26BA75BB0084F617 /* RSConfig.swift */,
 				EDADFACC26BBA0C70084F617 /* RSContext.swift */,
+				F647BB8D26BD435600C1EDB2 /* RSDeviceInfo.swift */,
+				F647BB8726BD432400C1EDB2 /* RSLibraryInfo.swift */,
 				EDADFACA26BBA0530084F617 /* RSMessage.swift */,
+				F647BB8F26BD436500C1EDB2 /* RSNetwork.swift */,
 				EDADFAC126BA75ED0084F617 /* RSOption.swift */,
+				F647BB8926BD433600C1EDB2 /* RSOSInfo.swift */,
+				F647BB8B26BD434400C1EDB2 /* RSScreenInfo.swift */,
+				ED1DEAF126CB8C1F00C09CAA /* RSServerDestination.swift */,
+				ED1DEAF326CB8C9000C09CAA /* RSServerDestinationDefinition.swift */,
+				F66207F326C5238100BAB6AA /* RSTraits.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -171,6 +242,8 @@
 		EDADFAC326BA79FE0084F617 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				ED1DEAE726C667AD00C09CAA /* Extensions */,
+				ED1DEAE526C6417500C09CAA /* Utility */,
 				EDADFAC426BA7A1B0084F617 /* Constants */,
 			);
 			path = Common;
@@ -180,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				EDADFAC526BA7A380084F617 /* Constants.swift */,
+				ED1DEAF526CB909900C09CAA /* RSConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -226,6 +300,7 @@
 			children = (
 				EDFF9CCA26C27ABF00B5D974 /* RSATT.swift */,
 				EDFF9CC826C279B200B5D974 /* RSLogLevel.swift */,
+				F60C05DE26C3F8C300DB218D /* RSMessageType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -248,10 +323,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 06CABB982630C3CA0097BEFF /* Build configuration list for PBXNativeTarget "Rudder" */;
 			buildPhases = (
+				D45D5114BCE2221C071F81F3 /* [CP] Check Pods Manifest.lock */,
 				06CABB7F2630C3CA0097BEFF /* Headers */,
 				06CABB802630C3CA0097BEFF /* Sources */,
 				06CABB812630C3CA0097BEFF /* Frameworks */,
 				06CABB822630C3CA0097BEFF /* Resources */,
+				ED1DEAE626C6463000C09CAA /* SwiftLint Script */,
 			);
 			buildRules = (
 			);
@@ -269,7 +346,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = RS;
-				LastUpgradeCheck = 1230;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Rudder Labs India Pvt Ltd.";
 				TargetAttributes = {
 					06CABB832630C3CA0097BEFF = {
@@ -301,40 +378,93 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDADFA9C26BA62BF0084F617 /* LICENSE in Resources */,
-				EDADFA9A26BA62BF0084F617 /* release.sh in Resources */,
-				EDADFABC26BA73960084F617 /* Rudder.podspec in Resources */,
-				EDADFA9D26BA62BF0084F617 /* README.md in Resources */,
-				EDADFA9B26BA62BF0084F617 /* CHANGELOG.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D45D5114BCE2221C071F81F3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Rudder-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ED1DEAE626C6463000C09CAA /* SwiftLint Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		06CABB802630C3CA0097BEFF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F647BB8626BD430D00C1EDB2 /* RSApp.swift in Sources */,
+				F647BB8E26BD435600C1EDB2 /* RSDeviceInfo.swift in Sources */,
 				EDADFACB26BBA0530084F617 /* RSMessage.swift in Sources */,
 				EDFF9CCB26C27ABF00B5D974 /* RSATT.swift in Sources */,
+				ED1DEAE926C667C600C09CAA /* UserDefaults+Ext.swift in Sources */,
 				EDADFAD926BBC2740084F617 /* ServiceManager.swift in Sources */,
 				EDADFAC226BA75ED0084F617 /* RSOption.swift in Sources */,
 				EDFF9CC426C25F6600B5D974 /* RSServerConfigManager.swift in Sources */,
 				EDADFAC026BA75BB0084F617 /* RSConfig.swift in Sources */,
 				EDFF9CC926C279B200B5D974 /* RSLogLevel.swift in Sources */,
+				F647BB9026BD436500C1EDB2 /* RSNetwork.swift in Sources */,
+				F647BB8826BD432400C1EDB2 /* RSLibraryInfo.swift in Sources */,
+				F647BACB26BD212F00C1EDB2 /* RSUtils.swift in Sources */,
+				F66207F026C4E0B200BAB6AA /* RSPreferenceManager.swift in Sources */,
 				EDADFAD526BBBEA70084F617 /* API+Method.swift in Sources */,
 				EDADFADB26BBC2EC0084F617 /* ServiceType.swift in Sources */,
+				ED1DEAF626CB909900C09CAA /* RSConstants.swift in Sources */,
 				EDADFAC926BA86610084F617 /* RSIntegrationFactory.swift in Sources */,
 				EDADFA9526BA5FDB0084F617 /* RSClient.swift in Sources */,
+				ED1DEAF226CB8C1F00C09CAA /* RSServerDestination.swift in Sources */,
 				EDFF9CC226C25EE500B5D974 /* RSDatabaseManager.swift in Sources */,
+				F60C05DF26C3F8C300DB218D /* RSMessageType.swift in Sources */,
 				EDADFAC626BA7A380084F617 /* Constants.swift in Sources */,
+				F647BB8A26BD433600C1EDB2 /* RSOSInfo.swift in Sources */,
 				EDADFAD326BBBE4F0084F617 /* API+Headers.swift in Sources */,
 				EDADFAD026BBB40F0084F617 /* API.swift in Sources */,
 				EDADFAD726BBBF790084F617 /* API+Path.swift in Sources */,
 				EDBEB4AC26C5011C00FD2CEF /* RSLogger.swift in Sources */,
 				EDADFACD26BBA0C70084F617 /* RSContext.swift in Sources */,
 				EDFF9CC026C2531F00B5D974 /* RSEventRepository.swift in Sources */,
+				ED1DEAEB26C6772800C09CAA /* JSONEncoder+Ext.swift in Sources */,
+				F647BB8C26BD434400C1EDB2 /* RSScreenInfo.swift in Sources */,
+				F66207F426C5238100BAB6AA /* RSTraits.swift in Sources */,
+				ED1DEAF426CB8C9000C09CAA /* RSServerDestinationDefinition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,6 +583,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -461,6 +592,7 @@
 		};
 		06CABB992630C3CA0097BEFF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52B74E9835C985AD2FC16125 /* Pods-Rudder.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -472,7 +604,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Rudder/SDKInfo/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -490,6 +622,7 @@
 		};
 		06CABB9A2630C3CA0097BEFF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C6F92C046EF07137714AE79 /* Pods-Rudder.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -501,7 +634,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Rudder/SDKInfo/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

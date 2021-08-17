@@ -81,7 +81,7 @@ import Foundation
         
     }
     
-    @objc public func getContext() -> RSContext {
+    @objc public func getContext() -> RSContext? {
         return eventRepository.cachedContext
     }
     
