@@ -9,5 +9,5 @@
 import Foundation
 
 protocol ServiceType {
-    
+    func downloadServerConfig(_ completion: @escaping Handler<RSServerConfig>)
 }

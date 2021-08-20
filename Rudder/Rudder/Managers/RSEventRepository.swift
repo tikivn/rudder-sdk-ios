@@ -11,11 +11,11 @@ import Foundation
 class RSEventRepository {
     private var databaseManager: RSDatabaseManager?
     private var serverConfigManager: RSServerConfigManager?
-    private let serviceManager = ServiceManager()
+    let serviceManager = ServiceManager()
 
     private var options: RSOption?
-    private var authToken: String?
-    private var config: RSConfig?
+    var authToken: String?
+    var config: RSConfig?
     private var anonymousIdToken: String?
     var cachedContext: RSContext?
     
@@ -36,6 +36,7 @@ class RSEventRepository {
         
         RSClient.shared.logger.logDebug(message: "EventRepository: initiating ServerConfigManager")
         serverConfigManager = RSServerConfigManager()
+        serverConfigManager?.fetchServerConfig()
         
         RSClient.shared.logger.logDebug(message: "EventRepository: initiating processor and factories")
         initializeSDK()

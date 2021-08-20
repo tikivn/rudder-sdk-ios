@@ -17,12 +17,12 @@ class RSConstants {
         UserDefaults.standard.lastUpdateTime = time
     }
         
-    static func getConfigJson() -> String? {
+    static func getServerConfig() -> RSServerConfig? {
         return UserDefaults.standard.serverConfig
     }
     
-    static func saveConfigJSON(_ configJSON: String) {
-        UserDefaults.standard.serverConfig = configJSON
+    static func saveServerConfig(_ serverConfig: RSServerConfig) {
+        UserDefaults.standard.serverConfig = serverConfig
     }
     
     static func getTraits() -> String? {

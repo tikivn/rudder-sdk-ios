@@ -10,6 +10,7 @@ import Foundation
 
 enum API {
     case flushEvents
+    case downloadConfig
 }
 
 enum APIClientStatus {
@@ -34,7 +35,16 @@ enum APIClientStatus {
 
 extension API {
     var baseURL: String {
-        return "/\(version)/"
+        switch self {
+        case .flushEvents:
+            return "\(RSClient.shared.eventRepository.config?.dataPlaneUrl ?? "")/\(version)/"
+        case .downloadConfig:
+            if RSClient.shared.eventRepository.config?.controlPlaneUrl.hasSuffix("/") == true {
+                return "\(RSClient.shared.eventRepository.config?.controlPlaneUrl ?? "")"
+            } else {
+                return "\(RSClient.shared.eventRepository.config?.controlPlaneUrl ?? "")/"
+            }
+        }
     }
     
     var version: String {

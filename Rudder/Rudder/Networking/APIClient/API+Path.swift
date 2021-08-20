@@ -13,6 +13,8 @@ extension API {
         switch self {
         case .flushEvents:
             return "batch"
+        case .downloadConfig:
+            return "sourceConfig?p=ios&v=\(Constants.RSVersion)"
         }
     }
 }

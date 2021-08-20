@@ -10,7 +10,13 @@ import Foundation
 
 extension API {
     var headers: [String: String]? {
-        let headers = ["Content-Type": "Application/json"]       
+        var headers = ["Content-Type": "Application/json"]
+        switch self {
+        case .downloadConfig:
+            headers["Authorization"] = "Basic \(RSClient.shared.eventRepository.authToken ?? "")"
+        default:
+            break
+        }
         return headers
     }
 }

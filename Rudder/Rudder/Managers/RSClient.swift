@@ -10,7 +10,7 @@ import Foundation
 
 @objc open class RSClient: NSObject {
     internal static let shared = RSClient()
-    private var eventRepository = RSEventRepository()
+    internal var eventRepository = RSEventRepository()
     let logger = RSLogger()
 
     private override init() {

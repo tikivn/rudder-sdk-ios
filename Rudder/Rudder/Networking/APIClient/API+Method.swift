@@ -31,7 +31,8 @@ enum Method {
 extension API {
     var method: Method {
         switch self {
-        
+        case .downloadConfig:
+            return .get
         default:
             return .post
         }

@@ -8,10 +8,27 @@
 
 import Foundation
 
-extension UserDefaults {    
-    var serverConfig: String? {
-        get { string(forKey: Constants.RSServerConfigKey) }
-        set { setValue(newValue, forKey: Constants.RSServerConfigKey) }
+extension PropertyListDecoder {
+    func optionalDecode<T: Decodable>(_ type: T.Type, from object: Any?) -> T? {
+        if let data = object as? Data {
+            return try? PropertyListDecoder().decode(T.self, from: data)
+        }
+        return nil
+    }
+}
+
+extension UserDefaults {
+    var serverConfig: RSServerConfig? {
+        get {
+            return PropertyListDecoder().optionalDecode(RSServerConfig.self, from: object(forKey: Constants.RSServerConfigKey))
+        }
+        set {
+            if let newValue = newValue {
+                set(try? PropertyListEncoder().encode(newValue), forKey: Constants.RSServerConfigKey)
+            } else {
+                set(nil, forKey: Constants.RSServerConfigKey)
+            }
+        }
     }
     
     var lastUpdateTime: Int? {

@@ -29,10 +29,10 @@ struct RSMessage {
     var option: RSOption?
     
     init() {
-        messageId = String(format: "%ld-%@", RSUtils.getTimeStampLong(), RSUtils.getUniqueId())
+        messageId = String(format: "%ld-%@", RSUtils.getTimeStamp(), RSUtils.getUniqueId())
         channel = "mobile"
         //        context = RSElementCache.getContext()
-        originalTimeStamp = RSUtils.getTimeStamp()
+        originalTimeStamp = RSUtils.getTimeStampString()
         previousId = nil
         groupId = nil
         traits = nil

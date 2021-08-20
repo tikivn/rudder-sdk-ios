@@ -23,17 +23,21 @@ struct ServiceManager: ServiceType {
         configuration.requestCachePolicy = .useProtocolCachePolicy
         return URLSession(configuration: configuration)
     }()
+    
+    func downloadServerConfig(_ completion: @escaping Handler<RSServerConfig>) {
+        ServiceManager.request(.downloadConfig, completion)
+    }
 }
 
 extension ServiceManager {
-    private func request<T: Codable>(_ API: API, _ completion: @escaping Handler<T>) {
+    static func request<T: Codable>(_ API: API, _ completion: @escaping Handler<T>) {
         let urlString = [API.baseURL, API.path].joined().addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         var request = URLRequest(url: URL(string: urlString ?? "")!)
         request.httpMethod = API.method.value
         let dataTask = ServiceManager.sharedSession.dataTask(with: request, completionHandler: { (data, response, error) in
             DispatchQueue.main.async {
-                if let error = error {
-                    //completion(.failure(error))
+                if error != nil {
+                    completion(.failure(NSError(code: .SERVER_ERROR)))
                     return
                 }
                 let response = response as? HTTPURLResponse
@@ -48,17 +52,32 @@ extension ServiceManager {
                             print(object)
                             completion(.success(object))
                         } catch {
-                            //completion(.failure(APIServerError.decodingFailed))
+                            completion(.failure(NSError(code: .DECODING_FAILED)))
                         }
                     default:
-                        break
-                        //completion(.failure(APIServerError.serverError))
+                        let errorCode = handleCustomError(data: data ?? Data())
+                        completion(.failure(NSError(code: errorCode)))
                     }
                 } else {
-                    //completion(.failure(APIServerError.serverError))
+                    completion(.failure(NSError(code: .SERVER_ERROR)))
                 }
             }
         })
         dataTask.resume()
+    }
+    
+    static func handleCustomError(data: Data) -> RSErrorCode {
+        do {
+            guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: String] else {
+                return .SERVER_ERROR
+            }
+            print(json)
+            if let message = json["message"], message == "Invalid write key" {
+                return .WRONG_WRITE_KEY
+            }
+            return .SERVER_ERROR
+        } catch {
+            return .SERVER_ERROR
+        }
     }
 }

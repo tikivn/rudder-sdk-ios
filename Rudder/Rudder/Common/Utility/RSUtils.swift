@@ -17,7 +17,7 @@ struct RSUtils {
         return dateFormatter.string(from: date)
     }
     
-    static func getTimeStamp() -> String {
+    static func getTimeStampString() -> String {
         return getDateString(date: Date())
     }
 
@@ -27,8 +27,8 @@ struct RSUtils {
         return fileUrl.path
     }
 
-    static func getTimeStampLong() -> Double {
-        return Date().timeIntervalSince1970
+    static func getTimeStamp() -> Int {
+        return Int(Date().timeIntervalSince1970)
     }
 
     static func getUniqueId() -> String {
