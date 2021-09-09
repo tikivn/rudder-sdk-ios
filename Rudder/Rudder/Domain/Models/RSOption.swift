@@ -10,7 +10,7 @@ import Foundation
 
 @objc open class RSOption: NSObject {
     var externalIds: [[String: Any]]?
-    var integrations: [String: Any]
+    var integrations: [String: Any]?
     var customContexts: [String: Any]?
     
     public override init() {
@@ -49,11 +49,11 @@ import Foundation
     }
     
     @objc public func putIntegration(_ type: String, isEnabled enabled: Bool) {
-        integrations[type] = enabled
+        integrations?[type] = enabled
     }
     
     func putIntegrationWithFactory(factory: RSIntegrationFactory, isEnabled enabled: Bool) {
-        integrations[factory.key] = enabled
+        integrations?[factory.key] = enabled
     }
     
     @objc public func putCustomContext(_ context: [String: Any]?, withKey key: String?) {

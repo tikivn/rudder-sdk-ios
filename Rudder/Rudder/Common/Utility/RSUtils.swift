@@ -46,4 +46,10 @@ struct RSUtils {
     static func userAgent() -> String? {
         return WKWebView().value(forKey: "userAgent") as? String
     }
+    
+    static func createTraits() -> [String: Any] {
+        let traits: RSTraits = RSTraits()
+        traits.anonymousId = UserDefaults.standard.anonymousId
+        return traits.dictionary()
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  ServiceType.swift
+//  RSServiceType.swift
 //  Rudder
 //
 //  Created by Pallab Maiti on 05/08/21.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol ServiceType {
+protocol RSServiceType {
     func downloadServerConfig(_ completion: @escaping Handler<RSServerConfig>)
 }

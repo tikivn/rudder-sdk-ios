@@ -20,39 +20,39 @@ extension PropertyListDecoder {
 extension UserDefaults {
     var serverConfig: RSServerConfig? {
         get {
-            return PropertyListDecoder().optionalDecode(RSServerConfig.self, from: object(forKey: Constants.RSServerConfigKey))
+            return PropertyListDecoder().optionalDecode(RSServerConfig.self, from: object(forKey: RSConstants.RSServerConfigKey))
         }
         set {
             if let newValue = newValue {
-                set(try? PropertyListEncoder().encode(newValue), forKey: Constants.RSServerConfigKey)
+                set(try? PropertyListEncoder().encode(newValue), forKey: RSConstants.RSServerConfigKey)
             } else {
-                set(nil, forKey: Constants.RSServerConfigKey)
+                set(nil, forKey: RSConstants.RSServerConfigKey)
             }
         }
     }
     
     var lastUpdateTime: Int? {
-        get { integer(forKey: Constants.RSServerLastUpdatedKey) }
-        set { setValue(newValue, forKey: Constants.RSServerLastUpdatedKey) }
+        get { integer(forKey: RSConstants.RSServerLastUpdatedKey) }
+        set { setValue(newValue, forKey: RSConstants.RSServerLastUpdatedKey) }
     }
     
     var traits: String? {
-        get { string(forKey: Constants.RSTraitsKey) }
-        set { setValue(newValue, forKey: Constants.RSTraitsKey) }
+        get { string(forKey: RSConstants.RSTraitsKey) }
+        set { setValue(newValue, forKey: RSConstants.RSTraitsKey) }
     }
     
     var buildVersionCode: String? {
-        get { string(forKey: Constants.RSApplicationInfoKey) }
-        set { setValue(newValue, forKey: Constants.RSApplicationInfoKey) }
+        get { string(forKey: RSConstants.RSApplicationInfoKey) }
+        set { setValue(newValue, forKey: RSConstants.RSApplicationInfoKey) }
     }
     
     var externalIds: String? {
-        get { string(forKey: Constants.RSExternalIdKey) }
-        set { setValue(newValue, forKey: Constants.RSExternalIdKey) }
+        get { string(forKey: RSConstants.RSExternalIdKey) }
+        set { setValue(newValue, forKey: RSConstants.RSExternalIdKey) }
     }
     
     var anonymousId: String? {
-        get { string(forKey: Constants.RSAnonymousIdKey) }
-        set { setValue(newValue, forKey: Constants.RSAnonymousIdKey) }
+        get { string(forKey: RSConstants.RSAnonymousIdKey) }
+        set { setValue(newValue, forKey: RSConstants.RSAnonymousIdKey) }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ServiceManager.swift
+//  RSServiceManager.swift
 //  Rudder
 //
 //  Created by Pallab Maiti on 05/08/21.
@@ -15,7 +15,7 @@ enum HandlerResult<Success, Failure> {
     case failure(Failure)
 }
 
-struct ServiceManager: ServiceType {
+struct RSServiceManager: RSServiceType {
     static let sharedSession: URLSession = {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 30
@@ -25,16 +25,16 @@ struct ServiceManager: ServiceType {
     }()
     
     func downloadServerConfig(_ completion: @escaping Handler<RSServerConfig>) {
-        ServiceManager.request(.downloadConfig, completion)
+        RSServiceManager.request(.downloadConfig, completion)
     }
 }
 
-extension ServiceManager {
+extension RSServiceManager {
     static func request<T: Codable>(_ API: API, _ completion: @escaping Handler<T>) {
         let urlString = [API.baseURL, API.path].joined().addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         var request = URLRequest(url: URL(string: urlString ?? "")!)
         request.httpMethod = API.method.value
-        let dataTask = ServiceManager.sharedSession.dataTask(with: request, completionHandler: { (data, response, error) in
+        let dataTask = RSServiceManager.sharedSession.dataTask(with: request, completionHandler: { (data, response, error) in
             DispatchQueue.main.async {
                 if error != nil {
                     completion(.failure(NSError(code: .SERVER_ERROR)))

@@ -14,7 +14,7 @@ struct RSLibraryInfo {
     
     init() {
         name = "rudder_ios_library"
-        version = Constants.RSVersion
+        version = RSConstants.RSVersion
     }
     
     func dict() -> [String: String] {

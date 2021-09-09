@@ -8,8 +8,7 @@
 
 import Foundation
 
-struct RSDestinationConfig: Codable {
-    
+@objc open class RSDestinationConfig: NSObject, Codable {    
     struct Config: Codable {
         let ios: [String]?
         let unity: [String]?

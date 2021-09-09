@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct RSMessage {
+@objc open class RSMessage: NSObject {
     let messageId: String
     let channel: String
     var context: RSContext?
-    var type: String?
+    var type: RSMessageType?
     var action: String?
     let originalTimeStamp: String
     var anonymousId: String?
@@ -27,16 +27,14 @@ struct RSMessage {
     var customContexts: [String: [String: Any]]?
     var destinationsProps: String?
     var option: RSOption?
+    var isAll = false
     
-    init() {
+    internal init(type: RSMessageType) {
         messageId = String(format: "%ld-%@", RSUtils.getTimeStamp(), RSUtils.getUniqueId())
         channel = "mobile"
-        //        context = RSElementCache.getContext()
+        context = RSClient.shared.eventManager.cachedContext
         originalTimeStamp = RSUtils.getTimeStampString()
-        previousId = nil
-        groupId = nil
-        traits = nil
-        userProperties = nil
-        anonymousId = UserDefaults.standard.anonymousId
+        anonymousId = RSUserDefaults.getAnonymousId()
+        self.type = type
     }
 }

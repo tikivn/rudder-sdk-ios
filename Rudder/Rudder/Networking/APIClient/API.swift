@@ -37,12 +37,12 @@ extension API {
     var baseURL: String {
         switch self {
         case .flushEvents:
-            return "\(RSClient.shared.eventRepository.config?.dataPlaneUrl ?? "")/\(version)/"
+            return "\(RSClient.shared.eventManager.config?.dataPlaneUrl ?? "")/\(version)/"
         case .downloadConfig:
-            if RSClient.shared.eventRepository.config?.controlPlaneUrl.hasSuffix("/") == true {
-                return "\(RSClient.shared.eventRepository.config?.controlPlaneUrl ?? "")"
+            if RSClient.shared.eventManager.config?.controlPlaneUrl.hasSuffix("/") == true {
+                return "\(RSClient.shared.eventManager.config?.controlPlaneUrl ?? "")"
             } else {
-                return "\(RSClient.shared.eventRepository.config?.controlPlaneUrl ?? "")/"
+                return "\(RSClient.shared.eventManager.config?.controlPlaneUrl ?? "")/"
             }
         }
     }

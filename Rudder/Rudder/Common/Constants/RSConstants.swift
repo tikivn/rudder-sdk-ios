@@ -2,70 +2,30 @@
 //  RSConstants.swift
 //  Rudder
 //
-//  Created by Pallab Maiti on 17/08/21.
+//  Created by Pallab Maiti on 04/08/21.
 //  Copyright © 2021 Rudder Labs India Pvt Ltd. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class RSConstants {
-    static func getLastUpdatedTime() -> Int? {
-        return UserDefaults.standard.lastUpdateTime
-    }
-    
-    static func updateLastUpdatedTime(_ time: Int) {
-        UserDefaults.standard.lastUpdateTime = time
-    }
-        
-    static func getServerConfig() -> RSServerConfig? {
-        return UserDefaults.standard.serverConfig
-    }
-    
-    static func saveServerConfig(_ serverConfig: RSServerConfig) {
-        UserDefaults.standard.serverConfig = serverConfig
-    }
-    
-    static func getTraits() -> String? {
-        return UserDefaults.standard.traits
-    }
-    
-    static func saveTraits(_ traits: String) {
-        UserDefaults.standard.traits = traits
-    }
-    
-    static func getBuildVersionCode() -> String? {
-        return UserDefaults.standard.buildVersionCode
-    }
-    
-    static func saveBuildVersionCode(_ version: String) {
-        UserDefaults.standard.buildVersionCode = version
-    }
-    
-    static func getExternalIds() -> String? {
-        return UserDefaults.standard.externalIds
-    }
-    
-    static func saveExternalIds(_ externalIdsJson: String) {
-        UserDefaults.standard.externalIds = externalIdsJson
-    }
-    
-    static func clearExternalIds() {
-        UserDefaults.standard.externalIds = nil
-    }
-    
-    static func getAnonymousId() -> String? {
-        if let anonymousId = UserDefaults.standard.anonymousId {
-            return anonymousId
-        } else {
-            if let anonymousId = UIDevice.current.identifierForVendor?.uuidString.lowercased() {
-                saveAnonymousId(anonymousId)
-                return anonymousId
-            }
-        }
-        return nil
-    }
-    
-    static func saveAnonymousId(_ anonymousId: String) {
-        UserDefaults.standard.anonymousId = anonymousId
-    }
+    static let RSConfigRefreshInterval: Int = 2
+    static let RSDataPlaneUrl: String = "https://hosted.rudderlabs.com"
+    static let RSFlushQueueSize: Int = 30
+    static let RSDBCountThreshold: Int = 10000
+    static let RSSleepTimeout: Int = 10
+    static let RSControlPlaneUrl: String = "https://api.rudderlabs.com"
+    static let RSTrackLifeCycleEvents: Bool = true
+    static let RSRecordScreenViews: Bool = false
+    static let RSVersion: String = "1.0.21"
+    static let TAG = "RSStack"
+    static let RSPrefsKey: String = "rl_prefs"
+    static let RSServerConfigKey: String = "rl_server_config"
+    static let RSServerLastUpdatedKey: String = "rl_server_last_updated"
+    static let RSTraitsKey: String = "rl_traits"
+    static let RSApplicationInfoKey: String = "rl_application_info_key"
+    static let RSExternalIdKey: String =  "rl_external_id"
+    static let RSAnonymousIdKey: String =  "rl_anonymous_id"
+    static let MAX_EVENT_SIZE: UInt = 32 * 1024
+    static let MAX_BATCH_SIZE: UInt = 500 * 1024
 }

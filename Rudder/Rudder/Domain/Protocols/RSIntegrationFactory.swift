@@ -9,5 +9,7 @@
 import Foundation
 
 @objc public protocol RSIntegrationFactory {
+    func initiate(_ config: RSDestinationConfig?, client: RSClient, rudderConfig: RSConfig) -> RSIntegration
+    
     var key: String { get }
 }

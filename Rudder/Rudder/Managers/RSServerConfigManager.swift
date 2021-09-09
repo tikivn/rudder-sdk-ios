@@ -18,9 +18,10 @@ class RSServerConfigManager {
             self?.manageServerConfig()
             let myQueue = DispatchQueue(label: "com.ruder.RSServerConfigManager")
             myQueue.sync { [weak self] in
-                self?.serverConfig = RSConstants.getServerConfig()
+                self?.serverConfig = RSUserDefaults.getServerConfig()
                 if self?.serverConfig == nil {
-                    
+                    RSClient.shared.logger.logDebug(message: "Server config retrieval failed.No config found in storage")
+                    RSClient.shared.logger.logError(message: "Failed to fetch server config for writeKey: \(RSClient.shared.eventManager.writeKey ?? "")")
                 }
             }
         }
@@ -28,7 +29,7 @@ class RSServerConfigManager {
     
     func isServerConfigOutDated() -> Bool {
         let currentTime = RSUtils.getTimeStamp()
-        if let lastUpdatedTime = RSConstants.getLastUpdatedTime(), let config = RSClient.shared.eventRepository.config {
+        if let lastUpdatedTime = RSUserDefaults.getLastUpdatedTime(), let config = RSClient.shared.eventManager.config {
             RSClient.shared.logger.logDebug(message: "Last updated config time: \(lastUpdatedTime)")
             RSClient.shared.logger.logDebug(message: "Current time: \(currentTime)")
             return (currentTime - lastUpdatedTime) > config.configRefreshInterval * 60 * 60 * 1000
@@ -43,8 +44,8 @@ extension RSServerConfigManager {
         var isCompleted = false
         while isCompleted && retryCount < 4 {
             if let serverConfig = downloadServerConfig() {
-                RSConstants.saveServerConfig(serverConfig)
-                RSConstants.updateLastUpdatedTime(RSUtils.getTimeStamp())
+                RSUserDefaults.saveServerConfig(serverConfig)
+                RSUserDefaults.updateLastUpdatedTime(RSUtils.getTimeStamp())
                 RSClient.shared.logger.logDebug(message: "server config download successful")
                 isCompleted = true
             } else {
@@ -66,7 +67,7 @@ extension RSServerConfigManager {
     private func downloadServerConfig() -> RSServerConfig? {
         var serverConfig: RSServerConfig?
         let semaphore = DispatchSemaphore(value: 0)
-        RSClient.shared.eventRepository.serviceManager.downloadServerConfig { [weak self] result in
+        RSClient.shared.eventManager.serviceManager.downloadServerConfig { [weak self] result in
             switch result {
             case .success(let config):
                 serverConfig = config

@@ -10,8 +10,9 @@ import Foundation
 
 @objc open class RSClient: NSObject {
     internal static let shared = RSClient()
-    internal var eventRepository = RSEventRepository()
-    let logger = RSLogger()
+    internal let eventManager = RSEventManager()
+    internal let logger = RSLogger()
+    internal let messageHandler = RSMessageHandler()
 
     private override init() {
         
@@ -30,270 +31,146 @@ import Foundation
     }
     
     @objc static public func getInstance(_ writeKey: String, config: RSConfig, options: RSOption) {
-        RSClient.shared.eventRepository.configure(writeKey: writeKey, config: config, options: options)
+        RSClient.shared.eventManager.configure(writeKey: writeKey, config: config, options: options)
     }
     
     @objc static public func setAnonymousId(_ anonymousId: String) {
-        
+        RSUserDefaults.saveAnonymousId(anonymousId)
     }
     
     @objc public func track(_ eventName: String) {
-        
+        let message = RSMessage(type: .track)
+        message.event = eventName
+        messageHandler.dumpMessage(message)
     }
     
     @objc public func track(_ eventName: String, properties: [String: Any]) {
-        
+        let message = RSMessage(type: .track)
+        message.event = eventName
+        message.properties = properties
+        messageHandler.dumpMessage(message)
     }
     
     @objc public func track(_ eventName: String, properties: [String: Any], options: RSOption) {
-        
+        let message = RSMessage(type: .track)
+        message.event = eventName
+        message.properties = properties
+        message.option = options
+        messageHandler.dumpMessage(message)
     }
     
     @objc public func screen(_ screenName: String) {
-        
+        let message = RSMessage(type: .screen)
+        message.event = screenName
+        let properties = ["name": screenName]
+        message.properties = properties
+        messageHandler.dumpMessage(message)
     }
     
     @objc public func screen(_ screenName: String, properties: [String: Any]) {
-        
+        let message = RSMessage(type: .screen)
+        message.event = screenName
+        var properties = properties
+        properties["name"] = screenName
+        message.properties = properties
+        messageHandler.dumpMessage(message)
     }
     
     @objc public func screen(_ screenName: String, properties: [String: Any], options: RSOption) {
-        
+        let message = RSMessage(type: .screen)
+        message.event = screenName
+        var properties = properties
+        properties["name"] = screenName
+        message.properties = properties
+        message.option = options
+        messageHandler.dumpMessage(message)
+    }
+    
+    @objc public func group(_ groupId: String) {
+        let message = RSMessage(type: .group)
+        message.groupId = groupId
+        messageHandler.dumpMessage(message)
+    }
+    
+    @objc public func group(_ groupId: String, traits: [String: Any]) {
+        let message = RSMessage(type: .group)
+        message.groupId = groupId
+        message.traits = traits
+        messageHandler.dumpMessage(message)
+    }
+    
+    @objc public func group(_ groupId: String, traits: [String: Any], options: RSOption) {
+        let message = RSMessage(type: .group)
+        message.groupId = groupId
+        message.traits = traits
+        message.option = options
+        messageHandler.dumpMessage(message)
     }
     
     @objc public func alias(_ newId: String) {
-        
+        alias(newId, options: nil)
     }
     
-    @objc public func alias(_ newId: String, options: RSOption) {
+    @objc public func alias(_ newId: String, options: RSOption?) {
+        let message = RSMessage(type: .alias)
+        message.userId = newId
+        message.option = options
+        let context = RSClient.shared.eventManager.cachedContext
+        var traits = context?.traits
+        var prevId: String?
+        prevId = traits?["userId"] as? String
+        if prevId == nil {
+            prevId = traits?["id"] as? String
+        }
         
+        if prevId != nil {
+            message.previousId = prevId
+        }
+        traits?["id"] = newId
+        traits?["userId"] = newId
+        
+        RSClient.shared.eventManager.cachedContext?.traits = traits
+        RSClient.shared.eventManager.cachedContext?.saveTraits()
+        message.traits = traits
+        messageHandler.dumpMessage(message)
     }
     
-    @objc public func identify(_ userId: String) {
-        
+    @objc public func identify(_ userId: String) {       
+        let traitsCopy = RSTraits()
+        traitsCopy.userId = userId
+        let message = RSMessage(type: .identify)
+        message.event = RSMessageType.identify.rawValue
+        message.userId = userId
+        RSClient.shared.eventManager.cachedContext?.updateTraits(traitsCopy)
+        messageHandler.dumpMessage(message)
     }
     
     @objc public func identify(_ userId: String, traits: [String: Any]) {
-        
+        let traitsCopy = RSTraits(dict: traits)
+        traitsCopy.userId = userId
+        let message = RSMessage(type: .identify)
+        message.event = RSMessageType.identify.rawValue
+        message.userId = userId
+        RSClient.shared.eventManager.cachedContext?.updateTraits(traitsCopy)
+        messageHandler.dumpMessage(message)
     }
     
     @objc public func identify(_ userId: String, traits: [String: Any], options: RSOption) {
-        
+        let traitsCopy = RSTraits(dict: traits)
+        traitsCopy.userId = userId
+        let message = RSMessage(type: .identify)
+        message.event = RSMessageType.identify.rawValue
+        message.userId = userId
+        message.option = options
+        RSClient.shared.eventManager.cachedContext?.updateTraits(traitsCopy)
+        messageHandler.dumpMessage(message)
     }
     
     @objc public func getContext() -> RSContext? {
-        return eventRepository.cachedContext
+        return eventManager.cachedContext
     }
     
     /*
-     + (instancetype) getInstance:(NSString *)writeKey {
-         return [RSClient getInstance:writeKey config:[[RSConfig alloc] init]];
-     }
-
-     + (instancetype) getInstance:(NSString *)writeKey config: (RSConfig*) config options: (RSOption*) options {
-         _defaultOptions = options;
-         return [RSClient getInstance:writeKey config:config];
-     }
-
-     + (instancetype) getInstance: (NSString *) writeKey config: (RSConfig*) config {
-         if (_instance == nil) {
-             static dispatch_once_t onceToken;
-             dispatch_once(&onceToken, ^{
-                 _instance = [[self alloc] init];
-                 _repository = [RSEventRepository initiate:writeKey config:config];
-             });
-         }
-         return _instance;
-     }     
-
-     - (void) dumpInternal:(RSMessage *)message type:(NSString*) type {
-         if (_repository != nil && message != nil) {
-             if (type == RSIdentify) {
-                 [RSElementCache persistTraits];
-                 
-                 //  handle external Ids
-                 RSOption *option = message.option;
-                 if (option != nil) {
-                     NSMutableArray *externalIds = option.externalIds;
-                     if (externalIds != nil) {
-                         [RSElementCache updateExternalIds:externalIds];
-                     }
-                 }
-                 
-                 [message updateContext:[RSElementCache getContext]];
-             }
-             message.type = type;
-             [_repository dump:message];
-         }
-     }
-
-     - (void)trackWithBuilder:(RSMessageBuilder *)builder{
-         [self dumpInternal:[builder build] type:RSTrack];
-     }
-
-     - (void)track:(NSString *)eventName {
-         RSMessageBuilder *builder = [[RSMessageBuilder alloc] init];
-         [builder setEventName:eventName];
-         [self dumpInternal:[builder build] type:RSTrack];
-     }
-
-     - (void)track:(NSString *)eventName properties:(NSDictionary<NSString *,NSObject *> *)properties {
-         RSMessageBuilder *builder = [[RSMessageBuilder alloc] init];
-         [builder setEventName:eventName];
-         [builder setPropertyDict:properties];
-         [self dumpInternal:[builder build] type:RSTrack];
-     }
-
-     - (void)track:(NSString *)eventName properties:(NSDictionary<NSString *,NSObject *> *)properties options:(RSOption *)options {
-         RSMessageBuilder *builder = [[RSMessageBuilder alloc] init];
-         [builder setEventName:eventName];
-         [builder setPropertyDict:properties];
-         [builder setRSOption:options];
-         [self dumpInternal:[builder build] type:RSTrack];
-     }
-
-     - (void) screenWithMessage:(RSMessage *)message {
-         [self dumpInternal:message type:RSScreen];
-     }
-
-     - (void)screenWithBuilder:(RSMessageBuilder *)builder {
-         [self dumpInternal:[builder build] type:RSScreen];
-     }
-
-     - (void)screen:(NSString *)screenName {
-         RSMessageBuilder *builder = [[RSMessageBuilder alloc] init];
-         NSMutableDictionary *property = [[NSMutableDictionary alloc] init];
-         [property setValue:screenName forKey:@"name"];
-         [builder setEventName:screenName];
-         [builder setPropertyDict:property];
-         [self dumpInternal:[builder build] type:RSScreen];
-     }
-
-     - (void)screen:(NSString *)screenName properties:(NSDictionary<NSString *,NSObject *> *)properties {
-         RSMessageBuilder *builder = [[RSMessageBuilder alloc] init];
-         NSMutableDictionary *property;
-         if (properties == nil) {
-             property = [[NSMutableDictionary alloc] init];
-         } else {
-             property = [properties mutableCopy];
-         }
-         [property setValue:screenName forKey:@"name"];
-         [builder setEventName:screenName];
-         [builder setPropertyDict:property];
-         [self dumpInternal:[builder build] type:RSScreen];
-     }
-
-     - (void)screen:(NSString *)screenName properties:(NSDictionary<NSString *,NSObject *> *)properties options:(RSOption *)options {
-         RSMessageBuilder *builder = [[RSMessageBuilder alloc] init];
-         NSMutableDictionary *property;
-         if (properties == nil) {
-             property = [[NSMutableDictionary alloc] init];
-         } else {
-             property = [properties mutableCopy];
-         }
-         [property setValue:screenName forKey:@"name"];
-         [builder setEventName:screenName];
-         [builder setPropertyDict:property];
-         [builder setRSOption:options];
-         [self dumpInternal:[builder build] type:RSScreen];
-     }
-
-     - (void)group:(NSString *)groupId{
-         RSMessageBuilder *builder = [[RSMessageBuilder alloc] init];
-         [builder setGroupId:groupId];
-         [self dumpInternal:[builder build] type:RSGroup];
-     }
-
-     - (void)group:(NSString *)groupId traits:(NSDictionary *)traits {
-         RSMessageBuilder *builder = [[RSMessageBuilder alloc] init];
-         [builder setGroupId:groupId];
-         [builder setGroupTraits:traits];
-         [self dumpInternal:[builder build] type:RSGroup];
-     }
-
-     - (void)group:(NSString *)groupId traits:(NSDictionary *)traits options:(RSOption *)options {
-         RSMessageBuilder *builder = [[RSMessageBuilder alloc] init];
-         [builder setGroupId:groupId];
-         [builder setGroupTraits:traits];
-         [builder setRSOption:options];
-         [self dumpInternal:[builder build] type:RSGroup];
-     }
-
-     - (void)alias:(NSString *)newId {
-         [self alias:newId options:nil];
-     }
-
-     - (void) alias:(NSString *)newId options:(RSOption *) options {
-         RSMessageBuilder *builder =[[RSMessageBuilder alloc] init];
-         [builder setUserId:newId];
-         [builder setRSOption:options];
-         
-         RSContext *rc = [RSElementCache getContext];
-         NSMutableDictionary<NSString*,NSObject*>* traits = [rc.traits mutableCopy];
-
-         NSObject *prevId = [traits objectForKey:@"userId"];
-         if(prevId == nil) {
-             prevId =[traits objectForKey:@"id"];
-         }
-         
-         if (prevId != nil) {
-             [builder setPreviousId:[NSString stringWithFormat:@"%@", prevId]];
-         }
-         traits[@"id"] = newId;
-         traits[@"userId"] = newId;
-         
-         [RSElementCache updateTraitsDict:traits];
-         [RSElementCache persistTraits];
-         
-         RSMessage *message = [builder build];
-         [message updateTraitsDict:traits];
-         
-         [self dumpInternal:message type:RSAlias];
-     }
-
-     - (void) pageWithMessage:(RSMessage *)message {
-         [RSLogger logWarn:@"Page call is no more supported for iOS source"];
-     }
-
-     - (void) identifyWithMessage:(RSMessage *)message {
-         [self dumpInternal:message type:RSIdentify];
-     }
-
-     - (void)identifyWithBuilder:(RSMessageBuilder *)builder {
-         [self identifyWithMessage:[builder build]];
-     }
-
-     - (void)identify:(NSString*)userId {
-         RSTraits* traitsCopy = [[RSTraits alloc] init];
-         [traitsCopy setUserId:userId];
-         RSMessageBuilder *builder = [[RSMessageBuilder alloc] init];
-         [builder setEventName:RSIdentify];
-         [builder setUserId:userId];
-         [builder setTraits:traitsCopy];
-         [self dumpInternal:[builder build] type:RSIdentify];
-     }
-
-     - (void)identify:(NSString *)userId traits:(NSDictionary *)traits {
-         RSTraits* traitsObj = [[RSTraits alloc] initWithDict: traits];
-         [traitsObj setUserId:userId];
-         RSMessageBuilder *builder = [[RSMessageBuilder alloc] init];
-         [builder setEventName:RSIdentify];
-         [builder setUserId:userId];
-         [builder setTraits:traitsObj];
-         [self dumpInternal:[builder build] type:RSIdentify];
-     }
-
-     - (void)identify:(NSString *)userId traits:(NSDictionary *)traits options:(RSOption *)options {
-         RSTraits *traitsObj = [[RSTraits alloc] initWithDict:traits];
-         [traitsObj setUserId:userId];
-         RSMessageBuilder *builder = [[RSMessageBuilder alloc] init];
-         [builder setEventName:RSIdentify];
-         [builder setUserId:userId];
-         [builder setTraits:traitsObj];
-         [builder setRSOption:options];
-         [self dumpInternal:[builder build] type:RSIdentify];
-     }
-
      - (void)reset {
          [RSElementCache reset];
          if (_repository != nil) {

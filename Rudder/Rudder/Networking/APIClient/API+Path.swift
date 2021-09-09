@@ -14,7 +14,7 @@ extension API {
         case .flushEvents:
             return "batch"
         case .downloadConfig:
-            return "sourceConfig?p=ios&v=\(Constants.RSVersion)"
+            return "sourceConfig?p=ios&v=\(RSConstants.RSVersion)"
         }
     }
 }

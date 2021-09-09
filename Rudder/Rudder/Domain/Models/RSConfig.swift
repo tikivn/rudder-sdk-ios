@@ -19,18 +19,20 @@ import Foundation
     var recordScreenViews: Bool
     var controlPlaneUrl: String
     var factories: [RSIntegrationFactory]
+    var customFactories: [RSIntegrationFactory]
     
     public override init() {
-        dataPlaneUrl = Constants.RSDataPlaneUrl
-        flushQueueSize = Constants.RSFlushQueueSize
-        dbCountThreshold = Constants.RSDBCountThreshold
-        sleepTimeOut = Constants.RSSleepTimeout
+        dataPlaneUrl = RSConstants.RSDataPlaneUrl
+        flushQueueSize = RSConstants.RSFlushQueueSize
+        dbCountThreshold = RSConstants.RSDBCountThreshold
+        sleepTimeOut = RSConstants.RSSleepTimeout
         logLevel = .error
-        configRefreshInterval = Constants.RSConfigRefreshInterval
-        trackLifecycleEvents = Constants.RSTrackLifeCycleEvents
-        recordScreenViews = Constants.RSRecordScreenViews
-        controlPlaneUrl = Constants.RSControlPlaneUrl
+        configRefreshInterval = RSConstants.RSConfigRefreshInterval
+        trackLifecycleEvents = RSConstants.RSTrackLifeCycleEvents
+        recordScreenViews = RSConstants.RSRecordScreenViews
+        controlPlaneUrl = RSConstants.RSControlPlaneUrl
         factories = [RSIntegrationFactory]()
+        customFactories = [RSIntegrationFactory]()
     }
     
     init(dataPlaneUrl: String, flushQueueSize: Int, dbCountThreshold: Int, sleepTimeOut: Int, logLevel: RSLogLevel, configRefreshInterval: Int, trackLifecycleEvents: Bool, recordScreenViews: Bool, controlPlaneUrl: String) {
@@ -44,6 +46,7 @@ import Foundation
         self.recordScreenViews = recordScreenViews
         self.controlPlaneUrl = controlPlaneUrl
         self.factories = [RSIntegrationFactory]()
+        self.customFactories = [RSIntegrationFactory]()
     }
     
     @objc public func withDataPlaneUrl(_ dataPlaneUrl: String) -> RSConfig {
@@ -138,6 +141,11 @@ import Foundation
     
     @objc public func withFactory(_ factory: RSIntegrationFactory) -> RSConfig {
         factories.append(factory)
+        return self
+    }
+    
+    @objc public func withCustomFactory(_ customFactory: RSIntegrationFactory) -> RSConfig {
+        customFactories.append(customFactory)
         return self
     }
 }

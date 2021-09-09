@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RSTraits: Codable {
+class RSTraits {
     var anonymousId: String?
     var age: String?
     var birthday: String?
@@ -22,15 +22,23 @@ struct RSTraits: Codable {
     var phone: String?
     var title: String?
     var userName: String?
-//    var extras: [String : Any]?
-//    var address: [String : Any]?
-//    var company: [String : Any]?
-
-    enum CodingKeys: String, CodingKey {
-        case anonymousId, age, birthday
-        case createdAt, description, email
-        case firstName = "firstname", gender, userId, lastName = "lastname"
-        case name, phone, title, userName
-//        case company, address, extras
+    var extras: [String: Any]?
+    var address: [String: Any]?
+    var company: [String: Any]?
+    
+    init() {
+        
+    }
+    
+    init(dict: [String: Any]) {
+        extras = dict
+    }
+    
+    func dictionary() -> [String: Any] {
+        var dictionary = [String: Any]()
+        if let anonymousId = anonymousId {
+            dictionary["anonymousId"] = anonymousId
+        }
+        return dictionary
     }
 }

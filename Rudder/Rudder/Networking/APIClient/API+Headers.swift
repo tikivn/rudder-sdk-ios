@@ -13,7 +13,7 @@ extension API {
         var headers = ["Content-Type": "Application/json"]
         switch self {
         case .downloadConfig:
-            headers["Authorization"] = "Basic \(RSClient.shared.eventRepository.authToken ?? "")"
+            headers["Authorization"] = "Basic \(RSClient.shared.eventManager.authToken ?? "")"
         default:
             break
         }

@@ -10,7 +10,7 @@ import Foundation
 
 @objc open class RSContext: NSObject {
     var app: RSApp
-    var traits: RSTraits?
+    var traits: [String: Any]?
     var library: RSLibraryInfo
     var osInfo: RSOSInfo
     var screenInfo: RSScreenInfo
@@ -20,68 +20,64 @@ import Foundation
     var network: RSNetwork
     var timezone: String
     var externalIds: [[String: Any]]?
-
+    
     override init() {
-        self.app = RSApp()
-        self.device = RSDeviceInfo()
-        self.library = RSLibraryInfo()
-        self.osInfo = RSOSInfo()
-        self.screenInfo = RSScreenInfo()
-        self.userAgent = RSUtils.userAgent()
-        self.locale = RSUtils.getLocale()
-        self.network = RSNetwork()
-        self.timezone = NSTimeZone.local.identifier
-
-        self.externalIds = nil
-        self.traits = nil
-
+        app = RSApp()
+        device = RSDeviceInfo()
+        library = RSLibraryInfo()
+        osInfo = RSOSInfo()
+        screenInfo = RSScreenInfo()
+        userAgent = RSUtils.userAgent()
+        locale = RSUtils.getLocale()
+        network = RSNetwork()
+        timezone = NSTimeZone.local.identifier
+        
+        externalIds = nil
+        traits = nil
+        
         if let traitsJson = UserDefaults.standard.traits {
             do {
-                self.traits = try JSONDecoder().decode(RSTraits.self, from: Data(traitsJson.utf8))
+                if let dict = try JSONSerialization.jsonObject(with: Data(traitsJson.utf8), options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any] {
+                    traits = dict
+                }
             } catch {
-                self.traits = RSContext.createAndPersistTraits()
+                traits = RSUtils.createTraits()
             }
         } else {
-            self.traits = RSContext.createAndPersistTraits()
+            traits = RSUtils.createTraits()
         }
-
-        let externalIdsJson: String? = UserDefaults.standard.externalIds
-        if externalIdsJson != nil {
+        
+        if let externalIdsJson = UserDefaults.standard.externalIds {
             do {
-                if let serializedExternalIds = try JSONSerialization.jsonObject(with: Data(externalIdsJson!.utf8), options: JSONSerialization.ReadingOptions.mutableContainers) as? [[String: Any]] {
-                    self.externalIds = serializedExternalIds
+                if let serializedExternalIds = try JSONSerialization.jsonObject(with: Data(externalIdsJson.utf8), options: JSONSerialization.ReadingOptions.mutableContainers) as? [[String: Any]] {
+                    externalIds = serializedExternalIds
                 }
             } catch { }
         }
     }
-
-    static func createAndPersistTraits() -> RSTraits {
-        var traits: RSTraits = RSTraits()
-        traits.anonymousId = UserDefaults.standard.anonymousId
-        persistTraits(traits)
-        return traits
-    }
-
-    static func persistTraits(_ traits: RSTraits) {
-        do {
-            let traitsData = try JSONEncoder().encode(traits)
-            UserDefaults.standard.traits = String(data: traitsData, encoding: .utf8)
-        } catch {
-            print(error.localizedDescription)
+    
+    func saveTraits() {
+        if let traits = traits {
+            do {
+                let traitsData = try JSONSerialization.data(withJSONObject: traits, options: JSONSerialization.WritingOptions.prettyPrinted)
+                RSUserDefaults.saveTraits(String(data: traitsData, encoding: .utf8))
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
-
+    
     func updateTraits(_ traits: RSTraits) {
-        var updatedTraits = traits
+        let updatedTraits = traits
         updatedTraits.anonymousId = UserDefaults.standard.anonymousId
-        self.traits = updatedTraits
+        self.traits = updatedTraits.dictionary()
     }
-
+    
     func updateExternalIds(_ externalIds: [[String: Any]]) {
         self.externalIds = externalIds
         do {
             let externalIdData = try JSONSerialization.data(withJSONObject: self.externalIds!, options: .prettyPrinted)
-            UserDefaults.standard.externalIds = String(data: externalIdData, encoding: .utf8)
+            RSUserDefaults.saveExternalIds(String(data: externalIdData, encoding: .utf8))
         } catch {
             print(error.localizedDescription)
         }
@@ -104,23 +100,23 @@ import Foundation
         tempDict["externalId"] = externalIds
         return tempDict
     }
-
+    
     @objc public func putDeviceToken(_ deviceToken: String) {
-        self.device.token = deviceToken
+        device.token = deviceToken
     }
-
+    
     @objc public func putAdvertisementId(_ idfa: String) {
         // This isn't ideal.  We're doing this because we can't actually check if IDFA is enabled on
         // the customer device.  Apple docs and tests show that if it is disabled, one gets back all 0's.
         RSClient.shared.logger.logDebug(message: "IDFA: \(idfa)")
         let adTrackingEnabled: Bool = idfa == "00000000-0000-0000-0000-000000000000"
-        self.device.adTrackingEnabled = adTrackingEnabled
+        device.adTrackingEnabled = adTrackingEnabled
         if adTrackingEnabled {
-            self.device.advertisingId = idfa
+            device.advertisingId = idfa
         }
     }
-
+    
     @objc public func putAppTrackingConsent(_ att: RSATT) {
-        self.device.attTrackingStatus = att
-}
+        device.attTrackingStatus = att
+    }
 }
