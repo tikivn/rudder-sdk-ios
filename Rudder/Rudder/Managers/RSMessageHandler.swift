@@ -26,19 +26,20 @@ class RSMessageHandler {
         }
         message.isAll = true
         factoryDumpManager.makeFactoryDump(message)
-        /*
-         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[message dict] options:0 error:nil];
-         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-         
-         [RSLogger logDebug:[[NSString alloc] initWithFormat:@"dump: %@", jsonString]];
-         
-         unsigned int messageSize = [RSUtils getUTF8Length:jsonString];
-         if (messageSize > MAX_EVENT_SIZE) {
-             [RSLogger logError:[NSString stringWithFormat:@"dump: Event size exceeds the maximum permitted event size(%iu)", MAX_EVENT_SIZE]];
-             return;
-         }
-         
-         [self->dbpersistenceManager saveEvent:jsonString];
-         */
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: message.toDict(), options: .prettyPrinted)
+            if let jsonString = String(data: jsonData, encoding: .utf8) {
+                RSClient.shared.logger.logDebug(message: "dump: \(jsonString)")
+                if jsonString.getUTF8Length() > RSConstants.MAX_EVENT_SIZE {
+                    RSClient.shared.logger.logError(message: "dump: Event size exceeds the maximum permitted event size \(RSConstants.MAX_EVENT_SIZE)")
+                    return
+                }
+                RSClient.shared.eventManager.databaseManager?.saveEvent(jsonString)
+            } else {
+                RSClient.shared.logger.logError(message: "dump: ")
+            }
+        } catch {
+            RSClient.shared.logger.logError(message: "dump: \(error.localizedDescription)")
+        }
     }
 }

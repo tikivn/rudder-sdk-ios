@@ -14,7 +14,7 @@ import Foundation
     var context: RSContext?
     var type: RSMessageType?
     var action: String?
-    let originalTimeStamp: String
+    let originalTimestamp: String
     var anonymousId: String?
     var userId: String?
     var previousId: String?
@@ -33,8 +33,44 @@ import Foundation
         messageId = String(format: "%ld-%@", RSUtils.getTimeStamp(), RSUtils.getUniqueId())
         channel = "mobile"
         context = RSClient.shared.eventManager.cachedContext
-        originalTimeStamp = RSUtils.getTimeStampString()
+        originalTimestamp = RSUtils.getTimestampString()
         anonymousId = RSUserDefaults.getAnonymousId()
         self.type = type
+    }
+    
+    func toDict() -> [String: Any] {
+        var dictionary = [String: Any]()
+        dictionary["messageId"] = messageId
+        dictionary["channel"] = channel
+        var contextDict = context?.dict()
+        if let customContexts = customContexts {
+            for key in customContexts.keys {
+                let dict = [key: customContexts]
+                contextDict?[key] = dict
+            }
+        }
+        dictionary["context"] = contextDict
+        dictionary["type"] = type
+        dictionary["action"] = action
+        dictionary["originalTimestamp"] = originalTimestamp
+        if let previousId = previousId {
+            dictionary["previousId"] = previousId
+        }
+        if let traits = traits {
+            dictionary["traits"] = traits
+        }
+        dictionary["anonymousId"] = anonymousId
+        if let userId = userId {
+            dictionary["userId"] = userId
+        }
+        if let properties = properties {
+            dictionary["properties"] = properties
+        }
+        dictionary["event"] = event
+        if let userProperties = userProperties {
+            dictionary["userProperties"] = userProperties
+        }
+        dictionary["integrations"] = integrations
+        return dictionary
     }
 }

@@ -22,11 +22,9 @@ class RSFactoryDumpManager {
                 return
             }
             
-            for integrationOperation in RSClient.shared.eventManager.integrationOperationList {
-                if message.integrations?[integrationOperation.key] as? Bool == true {
-                    RSClient.shared.logger.logDebug(message: "dumping for \(integrationOperation.key)")
-                    integrationOperation.integration.dump(message)
-                }
+            for integrationOperation in RSClient.shared.eventManager.integrationOperationList where message.integrations?[integrationOperation.key] as? Bool == true {
+                RSClient.shared.logger.logDebug(message: "dumping for \(integrationOperation.key)")
+                integrationOperation.integration.dump(message)
             }
         } else {
             RSClient.shared.logger.logDebug(message: "factories are not initialized. dumping to replay queue")

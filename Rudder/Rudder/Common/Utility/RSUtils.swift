@@ -8,6 +8,7 @@
 
 import Foundation
 import WebKit
+import SQLite3
 
 struct RSUtils {
     static func getDateString(date: Date) -> String {
@@ -17,7 +18,7 @@ struct RSUtils {
         return dateFormatter.string(from: date)
     }
     
-    static func getTimeStampString() -> String {
+    static func getTimestampString() -> String {
         return getDateString(date: Date())
     }
 
@@ -25,6 +26,17 @@ struct RSUtils {
         let urlDirectory = FileManager.default.urls(for: FileManager.SearchPathDirectory.libraryDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)[0]
         let fileUrl = urlDirectory.appendingPathComponent("rl_persistence.sqlite")
         return fileUrl.path
+    }
+    
+    static func openDatabase() -> OpaquePointer? {
+        var db: OpaquePointer?
+        if sqlite3_open_v2(getDBPath(), &db, SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE | SQLITE_OPEN_FULLMUTEX, nil) == SQLITE_OK {
+            RSClient.shared.logger.logDebug(message: "Successfully opened connection to database at \(getDBPath())")
+            return db
+        } else {
+            RSClient.shared.logger.logError(message: "Unable to open database.")
+            return nil
+        }
     }
 
     static func getTimeStamp() -> Int {
