@@ -18,10 +18,6 @@ end
 target 'RudderSampleAppObjC' do
     project 'RudderSampleAppObjC/RudderSampleAppObjC.xcodeproj'
     shared_pods
-    target 'RudderSampleAppObjC_Tests' do
-        inherit! :search_paths
-        pod 'FBSnapshotTestCase'
-    end
 end
 
 target 'RudderSampleAppSwift' do

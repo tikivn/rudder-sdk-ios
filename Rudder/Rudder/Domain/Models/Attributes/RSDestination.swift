@@ -9,6 +9,9 @@
 import Foundation
 
 struct RSDestination: Codable {
+    let config: [String: String]?
+    let secretConfig: [String: String]?
+    
     private let _id: String?
     var id: String {
         return _id ?? ""
@@ -47,6 +50,7 @@ struct RSDestination: Codable {
     let destinationDefinition: RSDestinationDefinition?
     
     enum CodingKeys: String, CodingKey {
+        case config, secretConfig
         case _id = "id"
         case _name = "name"
         case _enabled = "enabled"
@@ -54,6 +58,6 @@ struct RSDestination: Codable {
         case _deleted = "deleted"
         case _createdAt = "createdAt"
         case _updatedAt = "updatedAt"
-        case destinationDefinition = "destinationDefinition"
+        case destinationDefinition
     }
 }

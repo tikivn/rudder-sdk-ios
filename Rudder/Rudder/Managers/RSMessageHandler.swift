@@ -19,7 +19,7 @@ class RSMessageHandler {
             message.context = RSClient.shared.eventManager.cachedContext
         }
         guard RSClient.shared.eventManager.isSDKEnabled == true else {
-            fatalError("SDK is not enabled")
+            return
         }
         if message.integrations?.isEmpty == true, let options = RSClient.shared.eventManager.options, let integrations = options.integrations, !integrations.isEmpty {
             message.integrations = integrations            
@@ -27,16 +27,21 @@ class RSMessageHandler {
         message.isAll = true
         factoryDumpManager.makeFactoryDump(message)
         do {
-            let jsonData = try JSONSerialization.data(withJSONObject: message.toDict(), options: .prettyPrinted)
-            if let jsonString = String(data: jsonData, encoding: .utf8) {
-                RSClient.shared.logger.logDebug(message: "dump: \(jsonString)")
-                if jsonString.getUTF8Length() > RSConstants.MAX_EVENT_SIZE {
-                    RSClient.shared.logger.logError(message: "dump: Event size exceeds the maximum permitted event size \(RSConstants.MAX_EVENT_SIZE)")
-                    return
+            let jsonObject = message.toDict()
+            if JSONSerialization.isValidJSONObject(jsonObject) {
+                let jsonData = try JSONSerialization.data(withJSONObject: jsonObject)
+                if let jsonString = String(data: jsonData, encoding: .utf8) {
+                    RSClient.shared.logger.logDebug(message: "dump: \(jsonString)")
+                    if jsonString.getUTF8Length() > RSConstants.MAX_EVENT_SIZE {
+                        RSClient.shared.logger.logError(message: "dump: Event size exceeds the maximum permitted event size \(RSConstants.MAX_EVENT_SIZE)")
+                        return
+                    }
+                    RSClient.shared.eventManager.databaseManager?.saveEvent(jsonString)
+                } else {
+                    RSClient.shared.logger.logError(message: "dump: Can not convert to JSON")
                 }
-                RSClient.shared.eventManager.databaseManager?.saveEvent(jsonString)
             } else {
-                RSClient.shared.logger.logError(message: "dump: ")
+                RSClient.shared.logger.logError(message: "dump: Not a valid JSON object")
             }
         } catch {
             RSClient.shared.logger.logError(message: "dump: \(error.localizedDescription)")

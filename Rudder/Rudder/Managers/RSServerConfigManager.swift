@@ -10,19 +10,16 @@ import Foundation
 
 class RSServerConfigManager {
     
-    var serverConfig: RSServerConfig?
+    var serverConfig: RSServerConfig? = RSUserDefaults.getServerConfig()
     var error: NSError?
     
     func fetchServerConfig() {
         DispatchQueue.global(qos: .background).async { [weak self] in
-            self?.manageServerConfig()
-            let myQueue = DispatchQueue(label: "com.ruder.RSServerConfigManager")
-            myQueue.sync { [weak self] in
-                self?.serverConfig = RSUserDefaults.getServerConfig()
-                if self?.serverConfig == nil {
-                    RSClient.shared.logger.logDebug(message: "Server config retrieval failed.No config found in storage")
-                    RSClient.shared.logger.logError(message: "Failed to fetch server config for writeKey: \(RSClient.shared.eventManager.writeKey ?? "")")
-                }
+            guard let self = self else { return }
+            self.manageServerConfig()
+            if self.serverConfig == nil {
+                RSClient.shared.logger.logDebug(message: "Server config retrieval failed.No config found in storage")
+                RSClient.shared.logger.logError(message: "Failed to fetch server config for writeKey: \(RSClient.shared.eventManager.writeKey ?? "")")
             }
         }
     }
@@ -42,8 +39,9 @@ extension RSServerConfigManager {
     private func manageServerConfig() {
         var retryCount = 0
         var isCompleted = false
-        while isCompleted && retryCount < 4 {
+        while !isCompleted && retryCount < 4 {
             if let serverConfig = downloadServerConfig() {
+                self.serverConfig = serverConfig
                 RSUserDefaults.saveServerConfig(serverConfig)
                 RSUserDefaults.updateLastUpdatedTime(RSUtils.getTimeStamp())
                 RSClient.shared.logger.logDebug(message: "server config download successful")
@@ -68,11 +66,12 @@ extension RSServerConfigManager {
         var serverConfig: RSServerConfig?
         let semaphore = DispatchSemaphore(value: 0)
         RSClient.shared.eventManager.serviceManager.downloadServerConfig { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let config):
                 serverConfig = config
             case .failure(let error):
-                self?.error = error
+                self.error = error
             }
             semaphore.signal()
         }

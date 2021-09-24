@@ -7,12 +7,12 @@
 //
 
 #import "_AppDelegate.h"
-#import <Rudder/Rudder.h>
 #import <AdSupport/ASIdentifierManager.h>
-#import "Rudder-Swift.h"
 
-static NSString *DATA_PLANE_URL = @"https://7eddd110f484.ngrok.io";
-static NSString *WRITE_KEY = @"1pcZviVxgjd3rTUUmaTUBinGH0A";
+@import Rudder;
+
+static NSString *DATA_PLANE_URL = @"https://rudderstacz.dataplane.rudderstack.com";
+static NSString *WRITE_KEY = @"1wvsoF3Kx2SczQNlx1dvcqW9ODW";
 
 @implementation _AppDelegate
 
@@ -41,7 +41,7 @@ static NSString *WRITE_KEY = @"1pcZviVxgjd3rTUUmaTUBinGH0A";
     [[[RSClient sharedInstance] getContext] putAppTrackingConsent:RSATTAuthorize];
     
     
-    RSOption *option = [[RSOption alloc]init];
+    /*RSOption *option = [[RSOption alloc]init];
     [option putIntegration:@"Amplitude" isEnabled:YES];
     [option putIntegration:@"MixPanel" isEnabled:NO];
     [option putCustomContext: @{
@@ -52,7 +52,7 @@ static NSString *WRITE_KEY = @"1pcZviVxgjd3rTUUmaTUBinGH0A";
     [[RSClient sharedInstance] track:@"simple_track_with_props" properties:@{
         @"key_1" : @"value_1",
         @"key_2" : @"value_2"
-    } options:option];
+    } options:option];*/
     
     return YES;
 }

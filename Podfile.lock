@@ -1,20 +1,13 @@
 PODS:
-  - FBSnapshotTestCase (2.1.4):
-    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
-  - FBSnapshotTestCase/Core (2.1.4)
-  - FBSnapshotTestCase/SwiftSupport (2.1.4):
-    - FBSnapshotTestCase/Core
   - Rudder (1.0.21)
   - SwiftLint (0.40.3)
 
 DEPENDENCIES:
-  - FBSnapshotTestCase
   - Rudder (from `Rudder/`)
   - SwiftLint
 
 SPEC REPOS:
   trunk:
-    - FBSnapshotTestCase
     - SwiftLint
 
 EXTERNAL SOURCES:
@@ -22,10 +15,9 @@ EXTERNAL SOURCES:
     :path: Rudder/
 
 SPEC CHECKSUMS:
-  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   Rudder: d36b9036fed53764fabe33d93372d9daa01192f2
   SwiftLint: dfd554ff0dff17288ee574814ccdd5cea85d76f7
 
-PODFILE CHECKSUM: 3f938c33d3c049c810138a92ce329bb7d98066a9
+PODFILE CHECKSUM: 01d8d7b8caeaf6c3b1a749d34e9b0551b628c03e
 
 COCOAPODS: 1.10.1

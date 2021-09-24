@@ -44,7 +44,7 @@ struct RSDeviceInfo {
             tempDict["adTrackingEnabled"] = adTrackingEnabled
             tempDict["advertisingId"] = advertisingId
         }
-        tempDict["attTrackingStatus"] = attTrackingStatus
+        tempDict["attTrackingStatus"] = attTrackingStatus.rawValue
         return tempDict
     }
 }

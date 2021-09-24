@@ -12,4 +12,8 @@ extension String {
     func getUTF8Length() -> Int {
         return self.data(using: .utf8)?.count ?? 0
     }
+    
+    func computeAuthToken() -> String? {
+        return "\(self):".data(using: .utf8)?.base64EncodedString(options: .endLineWithCarriageReturn)
+    }
 }

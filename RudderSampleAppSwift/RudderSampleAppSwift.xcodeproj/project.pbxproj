@@ -46,9 +46,9 @@
 			isa = PBXGroup;
 			children = (
 				06EABC8424665E470043D720 /* RudderSampleAppSwift */,
-				06EABC8324665E470043D720 /* Products */,
-				F2701023BBDB8F80F59A3F3E /* Pods */,
 				4ECC3D96EBB8631FC902FF54 /* Frameworks */,
+				F2701023BBDB8F80F59A3F3E /* Pods */,
+				06EABC8324665E470043D720 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -363,7 +363,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rudderstack.ios.test.ExampleSwift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rudderstack.ios.test.swift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -382,7 +382,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rudderstack.ios.test.ExampleSwift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rudderstack.ios.test.swift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

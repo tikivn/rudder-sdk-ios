@@ -26,20 +26,19 @@ class RSEventManager {
     private var anonymousIdToken: String?
     var cachedContext: RSContext?
     var isSDKEnabled: Bool?
-    var isSDKInitialized: Bool?
     var areFactoriesInitialized: Bool?
     var integrationOperationList = [RSIntegrationOperation]()
     var eventReplayMessageList = [RSMessage]()
     
     func configure(writeKey: String, config: RSConfig, options: RSOption) {
-        guard isSDKInitialized == true else {
-            RSClient.shared.logger.logError(message: "EventRepository: SDK already has been initialized")
-            return
-        }
         self.writeKey = writeKey
-        self.authToken = writeKey.data(using: .utf8)?.base64EncodedString()
+        self.authToken = writeKey.computeAuthToken()
         self.config = config
         self.options = options
+        
+        areFactoriesInitialized = false
+        isSDKEnabled = true
+        
         RSClient.shared.logger.logDebug(message: "EventRepository: writeKey: \(writeKey)")
         RSClient.shared.logger.logDebug(message: "EventRepository: authToken: \(authToken ?? "")")
         RSClient.shared.logger.logDebug(message: "EventRepository: initiating element cache")
@@ -95,10 +94,9 @@ class RSEventManager {
                         self.replayMessageQueue()
                     } else {
                         RSClient.shared.logger.logDebug(message: "EventRepository: source is disabled in your Dashboard")
-                        // [self->dbpersistenceManager flushEventsFromDB];
+                        self.databaseManager?.clearAllEvents()
                     }
                     isInitialized = true
-                    self.isSDKInitialized = true
                 } else if self.serverConfigManager?.error?.code == RSErrorCode.WRONG_WRITE_KEY.rawValue {
                     retryCount = 6
                     RSClient.shared.logger.logDebug(message: "Wrong write key")

@@ -32,8 +32,13 @@ struct RSServiceManager: RSServiceType {
 extension RSServiceManager {
     static func request<T: Codable>(_ API: API, _ completion: @escaping Handler<T>) {
         let urlString = [API.baseURL, API.path].joined().addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        RSClient.shared.logger.logDebug(message: "RSServiceManager: URL: \(urlString ?? "")")
         var request = URLRequest(url: URL(string: urlString ?? "")!)
         request.httpMethod = API.method.value
+        if let headers = API.headers {
+            request.allHTTPHeaderFields = headers
+            RSClient.shared.logger.logDebug(message: "RSServiceManager: HTTPHeaderFields: \(headers)")
+        }
         let dataTask = RSServiceManager.sharedSession.dataTask(with: request, completionHandler: { (data, response, error) in
             DispatchQueue.main.async {
                 if error != nil {

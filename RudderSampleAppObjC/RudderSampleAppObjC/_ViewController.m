@@ -7,8 +7,8 @@
 //
 
 #import "_ViewController.h"
-#import <Rudder/Rudder.h>
-#import "Rudder-Swift.h"
+
+@import Rudder;
 
 @interface _ViewController ()
 

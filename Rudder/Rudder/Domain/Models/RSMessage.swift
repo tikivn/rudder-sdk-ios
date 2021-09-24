@@ -50,7 +50,7 @@ import Foundation
             }
         }
         dictionary["context"] = contextDict
-        dictionary["type"] = type
+        dictionary["type"] = type?.rawValue
         dictionary["action"] = action
         dictionary["originalTimestamp"] = originalTimestamp
         if let previousId = previousId {
