@@ -18,8 +18,8 @@ class RSServerConfigManager {
             guard let self = self else { return }
             self.manageServerConfig()
             if self.serverConfig == nil {
-                RSClient.shared.logger.logDebug(message: "Server config retrieval failed.No config found in storage")
-                RSClient.shared.logger.logError(message: "Failed to fetch server config for writeKey: \(RSClient.shared.eventManager.writeKey ?? "")")
+                logDebug("Server config retrieval failed.No config found in storage")
+                logError("Failed to fetch server config for writeKey: \(RSClient.shared.eventManager.writeKey ?? "")")
             }
         }
     }
@@ -27,8 +27,8 @@ class RSServerConfigManager {
     func isServerConfigOutDated() -> Bool {
         let currentTime = RSUtils.getTimeStamp()
         if let lastUpdatedTime = RSUserDefaults.getLastUpdatedTime(), let config = RSClient.shared.eventManager.config {
-            RSClient.shared.logger.logDebug(message: "Last updated config time: \(lastUpdatedTime)")
-            RSClient.shared.logger.logDebug(message: "Current time: \(currentTime)")
+            logDebug("Last updated config time: \(lastUpdatedTime)")
+            logDebug("Current time: \(currentTime)")
             return (currentTime - lastUpdatedTime) > config.configRefreshInterval * 60 * 60 * 1000
         }
         return false
@@ -44,21 +44,21 @@ extension RSServerConfigManager {
                 self.serverConfig = serverConfig
                 RSUserDefaults.saveServerConfig(serverConfig)
                 RSUserDefaults.updateLastUpdatedTime(RSUtils.getTimeStamp())
-                RSClient.shared.logger.logDebug(message: "server config download successful")
+                logDebug("server config download successful")
                 isCompleted = true
             } else {
                 if error?.code == RSErrorCode.WRONG_WRITE_KEY.rawValue {
-                    RSClient.shared.logger.logDebug(message: "Wrong write key")
+                    logDebug("Wrong write key")
                     retryCount = 4
                 } else {
-                    RSClient.shared.logger.logDebug(message: "Retrying download in \(retryCount) seconds")
+                    logDebug("Retrying download in \(retryCount) seconds")
                     retryCount += 1
                     sleep(UInt32(retryCount))
                 }
             }
         }
         if !isCompleted {
-            RSClient.shared.logger.logDebug(message: "Server config download failed.Using last stored config from storage")
+            logDebug("Server config download failed.Using last stored config from storage")
         }
     }
     

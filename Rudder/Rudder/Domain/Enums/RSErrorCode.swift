@@ -9,6 +9,7 @@
 import Foundation
 
 enum RSErrorCode: Int {
+    case UNKNOWN = -1
     case WRONG_WRITE_KEY = 0
     case DECODING_FAILED = 1
     case SERVER_ERROR = 500

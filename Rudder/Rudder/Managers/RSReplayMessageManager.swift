@@ -8,16 +8,14 @@
 
 import Foundation
 
-class RSReplayMessageManager: RSBaseManager {
-    struct Input {
-        
-    }
+class RSReplayMessageManager {
+    let factoryDumpManager = RSFactoryDumpManager()
     
-    struct Output {
-        
-    }
-    
-    func transform(input: Input) -> Output {
-        return Output()
+    func replayMessageQueue() {
+        logDebug("replaying old messages with factory")
+        for message in RSClient.shared.eventManager.eventReplayMessageList {
+            factoryDumpManager.makeFactoryDump(message)
+        }
+        RSClient.shared.eventManager.eventReplayMessageList.removeAll()
     }
 }

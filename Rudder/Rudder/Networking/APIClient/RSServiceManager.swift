@@ -27,17 +27,25 @@ struct RSServiceManager: RSServiceType {
     func downloadServerConfig(_ completion: @escaping Handler<RSServerConfig>) {
         RSServiceManager.request(.downloadConfig, completion)
     }
+    
+    func flushEvents(params: String, _ completion: @escaping Handler<Bool>) {
+        RSServiceManager.request(.flushEvents(params: params), completion)
+    }
 }
 
 extension RSServiceManager {
     static func request<T: Codable>(_ API: API, _ completion: @escaping Handler<T>) {
         let urlString = [API.baseURL, API.path].joined().addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-        RSClient.shared.logger.logDebug(message: "RSServiceManager: URL: \(urlString ?? "")")
+        logDebug("RSServiceManager: URL: \(urlString ?? "")")
         var request = URLRequest(url: URL(string: urlString ?? "")!)
         request.httpMethod = API.method.value
         if let headers = API.headers {
             request.allHTTPHeaderFields = headers
-            RSClient.shared.logger.logDebug(message: "RSServiceManager: HTTPHeaderFields: \(headers)")
+            logDebug("RSServiceManager: HTTPHeaderFields: \(headers)")
+        }
+        if let httpBody = API.httpBody {
+            request.httpBody = httpBody
+            logDebug("RSServiceManager: httpBody: \(httpBody)")
         }
         let dataTask = RSServiceManager.sharedSession.dataTask(with: request, completionHandler: { (data, response, error) in
             DispatchQueue.main.async {
@@ -50,14 +58,19 @@ extension RSServiceManager {
                     let apiClientStatus = APIClientStatus(statusCode)
                     switch apiClientStatus {
                     case .success:
-                        do {
-                            let json = try JSONSerialization.jsonObject(with: data ?? Data(), options: [])
-                            print(json)
-                            let object = try JSONDecoder().decode(T.self, from: data ?? Data())
-                            print(object)
-                            completion(.success(object))
-                        } catch {
-                            completion(.failure(NSError(code: .DECODING_FAILED)))
+                        switch API {
+                        case .flushEvents:
+                            completion(.success(true as! T)) // swiftlint:disable:this force_cast
+                        default:
+                            do {
+                                let json = try JSONSerialization.jsonObject(with: data ?? Data(), options: [])
+                                print(json)
+                                let object = try JSONDecoder().decode(T.self, from: data ?? Data())
+                                print(object)
+                                completion(.success(object))
+                            } catch {
+                                completion(.failure(NSError(code: .DECODING_FAILED)))
+                            }
                         }
                     default:
                         let errorCode = handleCustomError(data: data ?? Data())

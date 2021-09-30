@@ -9,7 +9,7 @@
 import Foundation
 
 enum API {
-    case flushEvents
+    case flushEvents(params: String)
     case downloadConfig
 }
 

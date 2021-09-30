@@ -10,4 +10,6 @@ import Foundation
 
 protocol RSServiceType {
     func downloadServerConfig(_ completion: @escaping Handler<RSServerConfig>)
+    
+    func flushEvents(params: String, _ completion: @escaping Handler<Bool>)
 }

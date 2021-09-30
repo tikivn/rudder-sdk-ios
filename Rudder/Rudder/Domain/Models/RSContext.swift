@@ -108,7 +108,7 @@ import Foundation
     @objc public func putAdvertisementId(_ idfa: String) {
         // This isn't ideal.  We're doing this because we can't actually check if IDFA is enabled on
         // the customer device.  Apple docs and tests show that if it is disabled, one gets back all 0's.
-        RSClient.shared.logger.logDebug(message: "IDFA: \(idfa)")
+        logDebug("IDFA: \(idfa)")
         let adTrackingEnabled: Bool = idfa == "00000000-0000-0000-0000-000000000000"
         device.adTrackingEnabled = adTrackingEnabled
         if adTrackingEnabled {

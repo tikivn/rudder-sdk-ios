@@ -31,20 +31,20 @@ class RSMessageHandler {
             if JSONSerialization.isValidJSONObject(jsonObject) {
                 let jsonData = try JSONSerialization.data(withJSONObject: jsonObject)
                 if let jsonString = String(data: jsonData, encoding: .utf8) {
-                    RSClient.shared.logger.logDebug(message: "dump: \(jsonString)")
+                    logDebug("dump: \(jsonString)")
                     if jsonString.getUTF8Length() > RSConstants.MAX_EVENT_SIZE {
-                        RSClient.shared.logger.logError(message: "dump: Event size exceeds the maximum permitted event size \(RSConstants.MAX_EVENT_SIZE)")
+                        logError("dump: Event size exceeds the maximum permitted event size \(RSConstants.MAX_EVENT_SIZE)")
                         return
                     }
                     RSClient.shared.eventManager.databaseManager?.saveEvent(jsonString)
                 } else {
-                    RSClient.shared.logger.logError(message: "dump: Can not convert to JSON")
+                    logError("dump: Can not convert to JSON")
                 }
             } else {
-                RSClient.shared.logger.logError(message: "dump: Not a valid JSON object")
+                logError("dump: Not a valid JSON object")
             }
         } catch {
-            RSClient.shared.logger.logError(message: "dump: \(error.localizedDescription)")
+            logError("dump: \(error.localizedDescription)")
         }
     }
 }

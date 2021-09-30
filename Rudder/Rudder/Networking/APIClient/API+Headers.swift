@@ -10,10 +10,11 @@ import Foundation
 
 extension API {
     var headers: [String: String]? {
-        var headers = ["Content-Type": "Application/json"]
+        var headers = ["Content-Type": "Application/json",
+                       "Authorization": "Basic \(RSClient.shared.eventManager.authToken ?? "")"]
         switch self {
-        case .downloadConfig:
-            headers["Authorization"] = "Basic \(RSClient.shared.eventManager.authToken ?? "")"
+        case .flushEvents:
+            headers["AnonymousId"] = RSClient.shared.eventManager.anonymousIdToken ?? ""
         default:
             break
         }

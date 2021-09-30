@@ -30,17 +30,17 @@ class RSCustomFactoryManager: RSBaseManager {
     }
     
     private func initiateFactories() {
-        RSClient.shared.logger.logDebug(message: "EventRepository: initiating factories")
+        logDebug("EventRepository: initiating factories")
         guard let config = config, !config.customFactories.isEmpty else {
-            RSClient.shared.logger.logDebug(message: "EventRepository: No native SDK is found in the config")
+            logDebug("EventRepository: No native SDK is found in the config")
             return
         }
         for factory in config.customFactories {
             let integration = factory.initiate(nil, client: RSClient.shared, rudderConfig: config)
-            RSClient.shared.logger.logDebug(message: "Initiating custom SDK factory \(factory.key)")
+            logDebug("Initiating custom SDK factory \(factory.key)")
             let integrationOperation = RSIntegrationOperation(key: factory.key, integration: integration)
             integrationOperationList.append(integrationOperation)
-            RSClient.shared.logger.logDebug(message: "Initiated custom SDK factory \(factory.key)")            
+            logDebug("Initiated custom SDK factory \(factory.key)")            
         }
     }
 }

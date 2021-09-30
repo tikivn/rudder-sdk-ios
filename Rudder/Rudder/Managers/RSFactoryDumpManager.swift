@@ -11,11 +11,11 @@ import Foundation
 class RSFactoryDumpManager {
     func makeFactoryDump(_ message: RSMessage) {
         if RSClient.shared.eventManager.areFactoriesInitialized == true {
-            RSClient.shared.logger.logDebug(message: "dumping message to native sdk factories")
+            logDebug("dumping message to native sdk factories")
             if message.isAll {
                 for integrationOperation in RSClient.shared.eventManager.integrationOperationList {
                     if message.integrations?[integrationOperation.key] == nil || message.integrations?[integrationOperation.key] as? Bool == true {
-                        RSClient.shared.logger.logDebug(message: "dumping for \(integrationOperation.key)")
+                        logDebug("dumping for \(integrationOperation.key)")
                         integrationOperation.integration.dump(message)
                     }
                 }
@@ -23,11 +23,11 @@ class RSFactoryDumpManager {
             }
             
             for integrationOperation in RSClient.shared.eventManager.integrationOperationList where message.integrations?[integrationOperation.key] as? Bool == true {
-                RSClient.shared.logger.logDebug(message: "dumping for \(integrationOperation.key)")
+                logDebug("dumping for \(integrationOperation.key)")
                 integrationOperation.integration.dump(message)
             }
         } else {
-            RSClient.shared.logger.logDebug(message: "factories are not initialized. dumping to replay queue")
+            logDebug("factories are not initialized. dumping to replay queue")
             RSClient.shared.eventManager.eventReplayMessageList.append(message)
         }
     }

@@ -31,6 +31,7 @@
 		ED923C1026D64594004A3974 /* RSServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED923C0F26D64594004A3974 /* RSServiceManager.swift */; };
 		ED923C1226D6461E004A3974 /* RSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED923C1126D6461E004A3974 /* RSConstants.swift */; };
 		ED923C1726D8B07E004A3974 /* RSMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED923C1626D8B07E004A3974 /* RSMessageHandler.swift */; };
+		ED98D26C270333DC00FE870B /* API+Body.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED98D26B270333DC00FE870B /* API+Body.swift */; };
 		EDADFA9526BA5FDB0084F617 /* RSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDADFA9426BA5FDB0084F617 /* RSClient.swift */; };
 		EDADFAA426BA63F60084F617 /* Rudder.h in Headers */ = {isa = PBXBuildFile; fileRef = EDADFAA226BA63F60084F617 /* Rudder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDADFAC026BA75BB0084F617 /* RSConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDADFABF26BA75BB0084F617 /* RSConfig.swift */; };
@@ -93,6 +94,7 @@
 		ED923C0F26D64594004A3974 /* RSServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSServiceManager.swift; sourceTree = "<group>"; };
 		ED923C1126D6461E004A3974 /* RSConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSConstants.swift; sourceTree = "<group>"; };
 		ED923C1626D8B07E004A3974 /* RSMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSMessageHandler.swift; sourceTree = "<group>"; };
+		ED98D26B270333DC00FE870B /* API+Body.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Body.swift"; sourceTree = "<group>"; };
 		EDADFA9426BA5FDB0084F617 /* RSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSClient.swift; sourceTree = "<group>"; };
 		EDADFA9626BA62BF0084F617 /* release.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = release.sh; path = ../release.sh; sourceTree = "<group>"; };
 		EDADFA9726BA62BF0084F617 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = CHANGELOG.md; path = ../CHANGELOG.md; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 			isa = PBXGroup;
 			children = (
 				EDADFACF26BBB40F0084F617 /* API.swift */,
+				ED98D26B270333DC00FE870B /* API+Body.swift */,
 				EDADFAD226BBBE4F0084F617 /* API+Headers.swift */,
 				EDADFAD426BBBEA70084F617 /* API+Method.swift */,
 				EDADFAD626BBBF790084F617 /* API+Path.swift */,
@@ -493,6 +496,7 @@
 				F647BB8E26BD435600C1EDB2 /* RSDeviceInfo.swift in Sources */,
 				EDADFACB26BBA0530084F617 /* RSMessage.swift in Sources */,
 				EDFF9CCB26C27ABF00B5D974 /* RSATT.swift in Sources */,
+				ED98D26C270333DC00FE870B /* API+Body.swift in Sources */,
 				ED923C0C26D63ECA004A3974 /* RSReplayMessageManager.swift in Sources */,
 				ED1DEAE926C667C600C09CAA /* UserDefaults+Ext.swift in Sources */,
 				EDADFAC226BA75ED0084F617 /* RSOption.swift in Sources */,

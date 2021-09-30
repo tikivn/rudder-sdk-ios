@@ -10,6 +10,26 @@ import Foundation
 import WebKit
 import SQLite3
 
+func logDebug(_ message: String) {
+    RSClient.shared.logger.logDebug(message: message)
+}
+
+func logError(_ message: String) {
+    RSClient.shared.logger.logError(message: message)
+}
+
+func logVerbose(_ message: String) {
+    RSClient.shared.logger.logVerbose(message: message)
+}
+
+func logInfo(_ message: String) {
+    RSClient.shared.logger.logInfo(message: message)
+}
+
+func logWarn(_ message: String) {
+    RSClient.shared.logger.logWarn(message: message)
+}
+
 struct RSUtils {
     static func getDateString(date: Date) -> String {
         let dateFormatter = DateFormatter()
@@ -31,10 +51,10 @@ struct RSUtils {
     static func openDatabase() -> OpaquePointer? {
         var db: OpaquePointer?
         if sqlite3_open_v2(getDBPath(), &db, SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE | SQLITE_OPEN_FULLMUTEX, nil) == SQLITE_OK {
-            RSClient.shared.logger.logDebug(message: "Successfully opened connection to database at \(getDBPath())")
+            logDebug("Successfully opened connection to database at \(getDBPath())")
             return db
         } else {
-            RSClient.shared.logger.logError(message: "Unable to open database.")
+            logError("Unable to open database.")
             return nil
         }
     }
@@ -63,5 +83,30 @@ struct RSUtils {
         let traits: RSTraits = RSTraits()
         traits.anonymousId = UserDefaults.standard.anonymousId
         return traits.dictionary()
+    }
+    
+    static func getJSON(from message: RSDBMessage) -> String {
+        let sentAt = RSUtils.getTimeStamp()
+        logDebug("RecordCount: \(message.messages.count)")
+        logDebug("sentAtTimeStamp: \(sentAt)")
+        var jsonString = "{\"sentAt\":\"\(sentAt)\",\"batch\":["
+        var totalBatchSize = jsonString.getUTF8Length() + 2
+        var index = 0
+        for message in message.messages {
+            var string = message[0..<message.count - 1]
+            string += ",\"sentAt\":\"\(sentAt)\"},"
+            totalBatchSize += string.getUTF8Length()
+            if totalBatchSize > RSConstants.MAX_BATCH_SIZE {
+                logDebug("MAX_BATCH_SIZE reached at index: \(index) | Total: \(totalBatchSize)")
+                break
+            }
+            jsonString += string
+            index += 1
+        }
+        if jsonString.last == "," {
+            jsonString = String(jsonString.dropLast())
+        }
+        jsonString += "]}"
+        return jsonString
     }
 }
