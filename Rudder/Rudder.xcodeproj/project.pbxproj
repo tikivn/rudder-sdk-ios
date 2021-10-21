@@ -14,6 +14,7 @@
 		ED1DEAF226CB8C1F00C09CAA /* RSDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DEAF126CB8C1F00C09CAA /* RSDestination.swift */; };
 		ED1DEAF426CB8C9000C09CAA /* RSDestinationDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DEAF326CB8C9000C09CAA /* RSDestinationDefinition.swift */; };
 		ED1DEAF626CB909900C09CAA /* RSUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DEAF526CB909900C09CAA /* RSUserDefaults.swift */; };
+		ED7619E12721605300B086F4 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7619E02721605300B086F4 /* UIViewController+Ext.swift */; };
 		ED923BEE26CE2CE2004A3974 /* RSServerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED923BED26CE2CE2004A3974 /* RSServerConfig.swift */; };
 		ED923BF026CE3DF8004A3974 /* RSDestinationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED923BEF26CE3DF8004A3974 /* RSDestinationConfig.swift */; };
 		ED923BF226CE5B20004A3974 /* RSErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED923BF126CE5B20004A3974 /* RSErrorCode.swift */; };
@@ -77,6 +78,7 @@
 		ED1DEAF326CB8C9000C09CAA /* RSDestinationDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSDestinationDefinition.swift; sourceTree = "<group>"; };
 		ED1DEAF526CB909900C09CAA /* RSUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSUserDefaults.swift; sourceTree = "<group>"; };
 		ED6EED8026B1081700C66C21 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		ED7619E02721605300B086F4 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		ED923BED26CE2CE2004A3974 /* RSServerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSServerConfig.swift; sourceTree = "<group>"; };
 		ED923BEF26CE3DF8004A3974 /* RSDestinationConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSDestinationConfig.swift; sourceTree = "<group>"; };
 		ED923BF126CE5B20004A3974 /* RSErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSErrorCode.swift; sourceTree = "<group>"; };
@@ -217,8 +219,9 @@
 			isa = PBXGroup;
 			children = (
 				ED923BF326CE61F7004A3974 /* NSError+Ext.swift */,
-				ED1DEAE826C667C600C09CAA /* UserDefaults+Ext.swift */,
 				EDB576DC26EB148700626EE3 /* String+Ext.swift */,
+				ED7619E02721605300B086F4 /* UIViewController+Ext.swift */,
+				ED1DEAE826C667C600C09CAA /* UserDefaults+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -504,6 +507,7 @@
 				EDADFAC026BA75BB0084F617 /* RSConfig.swift in Sources */,
 				EDFF9CC926C279B200B5D974 /* RSLogLevel.swift in Sources */,
 				F647BB9026BD436500C1EDB2 /* RSNetwork.swift in Sources */,
+				ED7619E12721605300B086F4 /* UIViewController+Ext.swift in Sources */,
 				F647BB8826BD432400C1EDB2 /* RSLibraryInfo.swift in Sources */,
 				ED923BEE26CE2CE2004A3974 /* RSServerConfig.swift in Sources */,
 				ED923C0E26D63EEA004A3974 /* RSBaseManager.swift in Sources */,

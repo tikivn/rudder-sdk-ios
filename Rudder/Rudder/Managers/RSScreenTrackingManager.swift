@@ -6,11 +6,11 @@
 //  Copyright © 2021 Rudder Labs India Pvt Ltd. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class RSScreenTrackingManager: RSTrackingManager {
     
     func track() {
-        
+        UIViewController.rudderSwizzleView()
     }
 }

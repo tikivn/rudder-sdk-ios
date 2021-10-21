@@ -37,7 +37,7 @@ class RSUserDefaults {
         return UserDefaults.standard.buildVersionCode
     }
     
-    static func saveBuildVersionCode(_ version: String) {
+    static func saveBuildVersionCode(_ version: String?) {
         UserDefaults.standard.buildVersionCode = version
     }
     

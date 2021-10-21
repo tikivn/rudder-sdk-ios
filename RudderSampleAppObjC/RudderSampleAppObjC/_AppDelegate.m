@@ -24,8 +24,8 @@ static NSString *WRITE_KEY = @"1wvsoF3Kx2SczQNlx1dvcqW9ODW";
     RSOption *defaultOption = [[RSOption alloc]init];
     // adding an integration into integrations object directly by specifying its name
     [defaultOption putIntegration:@"Amplitude" isEnabled:YES];
-    [defaultOption putIntegration:@"MoEngage" isEnabled:YES];
-    [defaultOption putIntegration:@"All" isEnabled:NO];
+//    [defaultOption putIntegration:@"MoEngage" isEnabled:YES];
+//    [defaultOption putIntegration:@"All" isEnabled:NO];
     // adding an integration into integrations object using its Factory object
     //[defaultOption putIntegrationWithFactory:[RudderMoengageFactory instance] isEnabled:NO];
     RSConfig *builder = [[RSConfig alloc] init];
@@ -41,7 +41,7 @@ static NSString *WRITE_KEY = @"1wvsoF3Kx2SczQNlx1dvcqW9ODW";
     [[[RSClient sharedInstance] getContext] putAppTrackingConsent:RSATTAuthorize];
     
     
-    /*RSOption *option = [[RSOption alloc]init];
+    RSOption *option = [[RSOption alloc]init];
     [option putIntegration:@"Amplitude" isEnabled:YES];
     [option putIntegration:@"MixPanel" isEnabled:NO];
     [option putCustomContext: @{
@@ -52,7 +52,7 @@ static NSString *WRITE_KEY = @"1wvsoF3Kx2SczQNlx1dvcqW9ODW";
     [[RSClient sharedInstance] track:@"simple_track_with_props" properties:@{
         @"key_1" : @"value_1",
         @"key_2" : @"value_2"
-    } options:option];*/
+    } options:option];
     
     return YES;
 }
